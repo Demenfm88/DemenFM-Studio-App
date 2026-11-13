@@ -3,27 +3,61 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demen FM Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#071b36">
+<title>Demen FM Studio App</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#071b36;color:white;font-family:Arial,sans-serif}
-header{background:#087eaa;text-align:center;padding:22px 10px}
-header h1{margin:0;color:#ffdf45;font-size:27px}
-header p{margin:7px 0 0}
-main{padding:18px;max-width:500px;margin:auto}
-.panel{background:#102c4d;padding:18px;border-radius:14px;margin-bottom:16px}
-h2{font-size:19px;margin:0 0 15px;color:#ffdf45}
-button{width:100%;padding:15px;border:0;border-radius:9px;font-size:16px;font-weight:bold;margin:6px 0;cursor:pointer}
-.start{background:#16b86a;color:white}
-.stop{background:#e34242;color:white}
-.blue{background:#087eaa;color:white}
-.status{background:#061629;padding:14px;border-radius:8px;text-align:center;color:#ffdf45}
-input{width:100%;padding:13px;border-radius:8px;border:0;margin:7px 0}
-footer{text-align:center;color:#9bb5cc;padding:20px;font-size:12px}
+body{
+ margin:0;
+ background:#071b36;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ background:#087eaa;
+ text-align:center;
+ padding:25px 10px;
+}
+header h1{color:#ffdf45;margin:0;font-size:28px}
+header p{margin:8px 0 0}
+main{max-width:500px;margin:auto;padding:18px}
+.panel{
+ background:#102c4d;
+ padding:20px;
+ border-radius:14px;
+ margin-bottom:18px;
+}
+h2{color:#ffdf45;font-size:20px;margin-top:0}
+.status{
+ background:#061629;
+ padding:18px;
+ border-radius:9px;
+ text-align:center;
+ color:#ffdf45;
+ font-weight:bold;
+ margin:12px 0;
+}
+button{
+ width:100%;
+ padding:16px;
+ border:0;
+ border-radius:9px;
+ font-size:16px;
+ font-weight:bold;
+ margin:7px 0;
+ color:white;
+}
+.start{background:#16ad65}
+.stop{background:#df4141}
+.blue{background:#087eaa}
+button:disabled{opacity:.5}
+.info{color:#b8cee0;font-size:13px;line-height:1.6}
+footer{text-align:center;color:#91aabe;padding:20px}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -35,41 +69,109 @@ footer{text-align:center;color:#9bb5cc;padding:20px;font-size:12px}
 <main>
 
 <div class="panel">
-<h2>🎵 AUTO DJ</h2>
-<div class="status" id="status">AUTO DJ SIAP</div>
-<button class="start" onclick="mulai()">▶ MULAI AUTO DJ</button>
-<button class="stop" onclick="berhenti()">■ STOP AUTO DJ</button>
+<h2>🎵 AUTO DJ CONTROL</h2>
+
+<div class="status" id="status">
+MEMERIKSA KONEKSI...
+</div>
+
+<button class="start" id="btnStart" onclick="perintah('start')">
+▶ MULAI AUTO DJ
+</button>
+
+<button class="stop" id="btnStop" onclick="perintah('stop')">
+■ STOP AUTO DJ
+</button>
+
+<button class="blue" onclick="cekStatus()">
+↻ CEK STATUS
+</button>
+
+<p class="info" id="pesan">
+Menunggu koneksi Termux.
+</p>
 </div>
 
 <div class="panel">
-<h2>📻 KONTROL SIARAN</h2>
-<div class="status">DEMEN FM 88</div>
-<button class="blue" onclick="alert('Menu siaran Demen FM')">BUKA KONTROL SIARAN</button>
+<h2>📻 SIARAN DEMEN FM</h2>
+<p>DEMEN FM 88 - RADIONYA CILACAP</p>
+<p class="info">Server streaming Caster.fm</p>
 </div>
 
 <div class="panel">
 <h2>🎙️ STUDIO PENYIAR</h2>
-<button class="blue" onclick="alert('Menu microphone')">AKTIFKAN MIC</button>
-<button class="stop" onclick="alert('Microphone dimatikan')">MATIKAN MIC</button>
+<p class="info">
+Kontrol microphone akan kita sambungkan pada tahap berikutnya.
+</p>
 </div>
 
 <div class="panel">
-<h2>📂 DAFTAR MUSIK</h2>
-<input type="file" accept="audio/*" multiple>
-<p>Pilih file musik dari HP.</p>
+<h2>📂 AUTO DJ</h2>
+<p class="info">
+Musik dan playlist menggunakan file yang sudah disiapkan di Termux.
+</p>
 </div>
 
 </main>
 
-<footer>DEMEN FM 88 © 2026<br>Studio Admin</footer>
+<footer>
+DEMEN FM 88 © 2026
+</footer>
 
 <script>
-function mulai(){
-document.getElementById("status").innerText="AUTO DJ SIAP DIJALANKAN";
+const SERVER = "http://127.0.0.1:8765";
+
+async function cekStatus(){
+ const status = document.getElementById("status");
+ const pesan = document.getElementById("pesan");
+
+ try{
+  const r = await fetch(SERVER + "/status");
+  if(!r.ok) throw new Error("Server error");
+
+  const data = await r.json();
+
+  if(data.status === "hidup"){
+   status.innerText = "🟢 AUTO DJ HIDUP";
+  }else{
+   status.innerText = "🔴 AUTO DJ MATI";
+  }
+
+  pesan.innerText = "Koneksi Termux berhasil.";
+ }catch(e){
+  status.innerText = "⚠️ TIDAK TERHUBUNG";
+  pesan.innerText = "Periksa Termux dan server kontrol.";
+ }
 }
-function berhenti(){
-document.getElementById("status").innerText="AUTO DJ DIHENTIKAN";
+
+async function perintah(aksi){
+ const pesan = document.getElementById("pesan");
+ const tombol = document.querySelectorAll("button");
+
+ tombol.forEach(b=>b.disabled=true);
+ pesan.innerText = "Mengirim perintah...";
+
+ try{
+  const r = await fetch(SERVER + "/" + aksi,{
+   method:"POST"
+  });
+
+  if(!r.ok) throw new Error("Perintah gagal");
+
+  const hasil = await r.text();
+  pesan.innerText = hasil;
+
+  await cekStatus();
+
+ }catch(e){
+  pesan.innerText = "Gagal terhubung ke Termux.";
+ }finally{
+  tombol.forEach(b=>b.disabled=false);
+ }
 }
+
+cekStatus();
+setInterval(cekStatus,10000);
 </script>
 
 </body>

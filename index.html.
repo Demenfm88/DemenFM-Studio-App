@@ -203,5 +203,16 @@ function serverInfo(){
  alert("Koneksi server Termux belum dipasang. Fungsi START dan STOP akan diaktifkan pada tahap berikutnya.");
 }
 </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("Demen FM siap"))
+      .catch(error => console.log(error));
+  });
+}
+</script>
+
 </body>
 </html>

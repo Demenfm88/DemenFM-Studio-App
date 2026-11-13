@@ -3,201 +3,74 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#087eaa">
-<link rel="manifest" href="./manifest.json">
-<title>DEMEN FM 88 - STUDIO</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demen FM Studio</title>
+<meta name="theme-color" content="#071b36">
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#071b36;color:white;font-family:Arial,sans-serif}
-header{background:#087eaa;text-align:center;padding:24px 12px}
-header h1{margin:0;font-size:27px}
+header{background:#087eaa;text-align:center;padding:22px 10px}
+header h1{margin:0;color:#ffdf45;font-size:27px}
 header p{margin:7px 0 0}
-main{max-width:600px;margin:auto;padding:16px}
-.panel{background:#102b4b;border:1px solid #285174;border-radius:14px;padding:17px;margin-bottom:15px}
-h2{font-size:18px;margin:0 0 14px;color:#ffd84d}
-.status{text-align:center;color:#9df5b1;font-weight:bold}
-button,.filelabel,select{border:0;border-radius:9px;padding:13px;font-size:15px;font-weight:bold}
-button{background:#087eaa;color:white}
-button:active,.filelabel:active{opacity:.7}
-.controls{display:flex;gap:9px;margin-top:14px}
-.controls button{flex:1}
-.filelabel{display:block;text-align:center;background:#ffd84d;color:#071b36;cursor:pointer}
-input[type=file]{display:none}
-select{width:100%;background:#071b36;color:white;margin-top:10px}
-audio{width:100%;margin-top:12px}
-#songList{padding:0;margin:12px 0 0;list-style:none}
-#songList li{padding:12px;border-bottom:1px solid #31506c;display:flex;justify-content:space-between;gap:8px;align-items:center}
-#songList li.active{color:#ffd84d}
-.songname{overflow-wrap:anywhere;flex:1}
-.del{background:#9b3030;padding:7px 10px}
-.small{font-size:12px;color:#b9cde0;line-height:1.5}
-footer{text-align:center;color:#9bb4ca;font-size:12px;padding:20px}
+main{padding:18px;max-width:500px;margin:auto}
+.panel{background:#102c4d;padding:18px;border-radius:14px;margin-bottom:16px}
+h2{font-size:19px;margin:0 0 15px;color:#ffdf45}
+button{width:100%;padding:15px;border:0;border-radius:9px;font-size:16px;font-weight:bold;margin:6px 0;cursor:pointer}
+.start{background:#16b86a;color:white}
+.stop{background:#e34242;color:white}
+.blue{background:#087eaa;color:white}
+.status{background:#061629;padding:14px;border-radius:8px;text-align:center;color:#ffdf45}
+input{width:100%;padding:13px;border-radius:8px;border:0;margin:7px 0}
+footer{text-align:center;color:#9bb5cc;padding:20px;font-size:12px}
 </style>
 </head>
-
 <body>
+
 <header>
 <h1>DEMEN FM 88</h1>
-<p>STUDIO AUTO DJ</p>
-<p>Emang Ndemenin • Radionya Cilacap</p>
+<p>STUDIO ADMIN</p>
+<p>Emang Ndemenin - Radionya Cilacap</p>
 </header>
 
 <main>
-<section class="panel">
-<h2>Status Pemutar</h2>
-<div class="status" id="status">PEMUTAR SIAP</div>
-<div class="controls">
-<button onclick="mulai()">▶ MULAI</button>
-<button onclick="berhenti()">■ STOP</button>
+
+<div class="panel">
+<h2>🎵 AUTO DJ</h2>
+<div class="status" id="status">AUTO DJ SIAP</div>
+<button class="start" onclick="mulai()">▶ MULAI AUTO DJ</button>
+<button class="stop" onclick="berhenti()">■ STOP AUTO DJ</button>
 </div>
-<audio id="audio" controls></audio>
-<p id="judul" class="small">Belum ada lagu dipilih</p>
-</section>
 
-<section class="panel">
-<h2>Tambah Lagu</h2>
-<label class="filelabel" for="files">＋ PILIH FILE MUSIK</label>
-<input id="files" type="file" accept="audio/*" multiple>
-<p class="small">Pilih lagu MP3 dari penyimpanan HP. Lagu akan masuk ke daftar putar selama aplikasi dibuka.</p>
-</section>
+<div class="panel">
+<h2>📻 KONTROL SIARAN</h2>
+<div class="status">DEMEN FM 88</div>
+<button class="blue" onclick="alert('Menu siaran Demen FM')">BUKA KONTROL SIARAN</button>
+</div>
 
-<section class="panel">
-<h2>Daftar Lagu</h2>
-<p class="small" id="jumlah">Belum ada lagu</p>
-<select id="mode">
-<option value="urut">Putar berurutan</option>
-<option value="acak">Putar acak</option>
-</select>
-<ul id="songList"></ul>
-</section>
+<div class="panel">
+<h2>🎙️ STUDIO PENYIAR</h2>
+<button class="blue" onclick="alert('Menu microphone')">AKTIFKAN MIC</button>
+<button class="stop" onclick="alert('Microphone dimatikan')">MATIKAN MIC</button>
+</div>
 
-<footer>DEMEN FM 88 • STUDIO ADMIN</footer>
+<div class="panel">
+<h2>📂 DAFTAR MUSIK</h2>
+<input type="file" accept="audio/*" multiple>
+<p>Pilih file musik dari HP.</p>
+</div>
+
 </main>
 
+<footer>DEMEN FM 88 © 2026<br>Studio Admin</footer>
+
 <script>
-const audio = document.getElementById("audio");
-const filesInput = document.getElementById("files");
-const songList = document.getElementById("songList");
-const statusText = document.getElementById("status");
-const judul = document.getElementById("judul");
-const jumlah = document.getElementById("jumlah");
-
-let lagu = [];
-let index = 0;
-
-filesInput.addEventListener("change", function(){
-  const pilihan = Array.from(this.files);
-  pilihan.forEach(file => {
-    lagu.push({
-      nama:file.name,
-      url:URL.createObjectURL(file)
-    });
-  });
-  gambarDaftar();
-  if(lagu.length && !audio.src) pilihLagu(0);
-  this.value = "";
-});
-
-function gambarDaftar(){
-  songList.innerHTML = "";
-  jumlah.textContent = lagu.length + " lagu tersedia";
-
-  lagu.forEach((item,i)=>{
-    const li = document.createElement("li");
-    if(i === index) li.className = "active";
-
-    const nama = document.createElement("span");
-    nama.className = "songname";
-    nama.textContent = (i+1)+". "+item.nama;
-    nama.onclick = ()=>pilihLagu(i);
-
-    const hapus = document.createElement("button");
-    hapus.className = "del";
-    hapus.textContent = "Hapus";
-    hapus.onclick = ()=>hapusLagu(i);
-
-    li.append(nama,hapus);
-    songList.appendChild(li);
-  });
-}
-
-function pilihLagu(i){
-  if(!lagu.length) return;
-  index = i;
-  audio.src = lagu[index].url;
-  judul.textContent = "Dipilih: " + lagu[index].nama;
-  gambarDaftar();
-}
-
 function mulai(){
-  if(!lagu.length){
-    alert("Pilih file musik terlebih dahulu.");
-    return;
-  }
-  if(!audio.src) pilihLagu(index);
-  audio.play().then(()=>{
-    statusText.textContent = "SEDANG MEMUTAR";
-  }).catch(()=>{
-    statusText.textContent = "GAGAL MEMUTAR";
-  });
+document.getElementById("status").innerText="AUTO DJ SIAP DIJALANKAN";
 }
-
 function berhenti(){
-  audio.pause();
-  statusText.textContent = "BERHENTI";
-}
-
-function berikutnya(){
-  if(!lagu.length) return;
-  if(document.getElementById("mode").value === "acak" && lagu.length > 1){
-    let baru;
-    do{baru=Math.floor(Math.random()*lagu.length)}while(baru===index);
-    index=baru;
-  }else{
-    index=(index+1)%lagu.length;
-  }
-  pilihLagu(index);
-  mulai();
-}
-
-function hapusLagu(i){
-  URL.revokeObjectURL(lagu[i].url);
-  lagu.splice(i,1);
-
-  if(!lagu.length){
-    audio.pause();
-    audio.removeAttribute("src");
-    audio.load();
-    index=0;
-    judul.textContent="Belum ada lagu dipilih";
-    statusText.textContent="PEMUTAR SIAP";
-  }else{
-    if(i===index){
-      audio.pause();
-      index=Math.min(i,lagu.length-1);
-      pilihLagu(index);
-    }else if(i<index){
-      index--;
-    }
-  }
-  gambarDaftar();
-}
-
-audio.addEventListener("ended", berikutnya);
-audio.addEventListener("pause", ()=>{
-  if(!audio.ended && audio.src) statusText.textContent="DIJEDA";
-});
-audio.addEventListener("play", ()=>{
-  statusText.textContent="SEDANG MEMUTAR";
-});
-
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./service-worker.js").catch(()=>{});
-  });
+document.getElementById("status").innerText="AUTO DJ DIHENTIKAN";
 }
 </script>
+
 </body>
 </html>

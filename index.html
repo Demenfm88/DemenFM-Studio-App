@@ -6,485 +6,244 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#061329">
 <title>Demen FM 88 Studio Pro</title>
+
 <style>
-
 *{box-sizing:border-box}
-
 body{
  margin:0;
- min-height:100vh;
- color:#f1fbff;
  font-family:Arial,sans-serif;
- background:
- radial-gradient(ellipse at 15% 5%,#075b83 0%,transparent 38%),
- radial-gradient(ellipse at 90% 35%,#172d72 0%,transparent 38%),
- linear-gradient(145deg,#020817,#071a31 55%,#030b1b);
- padding-bottom:80px;
- isolation:isolate;
-}
-
-/* GELEMBUNG CAHAYA */
-body:before{
- content:"";
- position:fixed;
- inset:0;
- z-index:-1;
- pointer-events:none;
- background:
- radial-gradient(circle at 12% 30%,#00d9ff35 0 3px,transparent 5px),
- radial-gradient(circle at 80% 18%,#39eaff40 0 5px,transparent 8px),
- radial-gradient(circle at 70% 75%,#008cff45 0 4px,transparent 7px),
- radial-gradient(circle at 28% 85%,#24dfff30 0 6px,transparent 10px),
- radial-gradient(circle at 92% 55%,#8c7bff30 0 3px,transparent 7px);
- background-size:240px 260px,320px 300px,280px 320px,350px 350px,300px 280px;
- animation:bubbles 16s linear infinite;
-}
-@keyframes bubbles{
- 0%{background-position:0 0,0 0,0 0,0 0,0 0}
- 100%{background-position:80px -260px,-100px -300px,120px -320px,-80px -350px,100px -280px}
-}
-
-header{
- position:relative;
- z-index:1;
- display:flex;
- align-items:center;
- gap:13px;
- padding:18px;
- background:linear-gradient(120deg,#0a294b99,#087eaa55,#142d6399);
- backdrop-filter:blur(22px);
- -webkit-backdrop-filter:blur(22px);
- border-bottom:1px solid #65eaff77;
- box-shadow:0 8px 35px #00bfff25,inset 0 1px #ffffff25;
-}
-.logo{
- width:55px;height:55px;
- border-radius:17px;
- display:grid;place-items:center;
- background:linear-gradient(145deg,#ffffffdd,#63eaff77);
- border:1px solid #ffffffaa;
- color:#06365a;
- font-size:26px;font-weight:900;
- box-shadow:0 0 18px #00dfff99,inset 0 2px 8px #ffffffcc;
-}
-h1{
- font-size:18px;margin:0;
- text-shadow:0 0 15px #28dfff;
-}
-header p{font-size:11px;margin:5px 0 0;color:#c8f4ff}
-.status{
- margin-left:auto;
- color:#70ffca;
- font-size:10px;
- text-shadow:0 0 12px #00ffb3;
-}
-
-main{
- position:relative;
- z-index:1;
- padding:14px;
- max-width:720px;
- margin:auto;
-}
-
-.panel{
- position:relative;
- overflow:hidden;
- background:linear-gradient(135deg,#b9eaff17,#63dfff08 45%,#ffffff0d);
- border:1px solid #8deaff55;
- border-radius:22px;
- padding:17px;
- margin-bottom:15px;
- backdrop-filter:blur(20px);
- -webkit-backdrop-filter:blur(20px);
- box-shadow:
- 0 12px 35px #00000055,
- 0 0 18px #00bfff18,
- inset 0 1px 1px #ffffff55,
- inset 0 -1px 1px #48dfff22;
-}
-.panel:before{
- content:"";
- position:absolute;
- top:0;left:12%;
- width:76%;height:1px;
- background:linear-gradient(90deg,transparent,#c8f8ff,transparent);
- opacity:.8;
-}
-.heading{
- color:#79edff;
- font-size:12px;
- font-weight:bold;
- letter-spacing:1.6px;
- margin-bottom:14px;
- text-shadow:0 0 12px #00dfff;
-}
-.now{
- background:linear-gradient(135deg,#0879a855,#132b5899);
- border-color:#66edff99;
- box-shadow:0 0 25px #00cfff44,inset 0 0 25px #42dfff15;
-}
-.song{
- font-size:21px;
- font-weight:bold;
- margin:12px 0;
- color:#fff;
- text-shadow:0 0 15px #42dfff99;
-}
-.sub{font-size:11px;color:#b9dff2}
-
-.meter{
- display:flex;
- gap:4px;
- height:45px;
- align-items:end;
- margin:16px 0;
-}
-.meter i{
- flex:1;
- height:var(--h);
- border-radius:8px;
- background:linear-gradient(180deg,#bafff0,#20e5ff 45%,#287aff);
- box-shadow:0 0 10px #00dfff,0 0 18px #008cff66;
-}
-
-.grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:11px;
-}
-
-button{
- position:relative;
- overflow:hidden;
- border:1px solid #9ceeff88;
- border-radius:16px;
- padding:15px 9px;
- color:#effcff;
- font-size:12px;
- font-weight:bold;
- background:linear-gradient(145deg,#b5efff28,#46cfff0d);
- backdrop-filter:blur(15px);
- -webkit-backdrop-filter:blur(15px);
- box-shadow:
- 0 6px 18px #0005,
- 0 0 13px #00cfff35,
- inset 0 1px 2px #ffffff77,
- inset 0 -2px 8px #00bfff22;
- transition:.25s;
-}
-button:before{
- content:"";
- position:absolute;
- top:0;left:-100%;
- width:65%;height:100%;
- background:linear-gradient(110deg,transparent,#ffffff33,transparent);
- transform:skewX(-20deg);
-}
-button:active{
- transform:scale(.96);
- box-shadow:0 0 25px #00dfff99,inset 0 0 15px #ffffff33;
-}
-button:active:before{left:140%}
-
-.primary{
- background:linear-gradient(135deg,#13bfff88,#1766d888);
- border-color:#78eaff;
- box-shadow:0 0 18px #00bfff66,inset 0 1px #ffffff88;
-}
-.green{
- background:linear-gradient(135deg,#00dca277,#087e6888);
- border-color:#70ffcf;
- box-shadow:0 0 18px #00ffb344,inset 0 1px #ffffff77;
-}
-.red{
- background:linear-gradient(135deg,#ff426977,#891d4688);
- border-color:#ff9cac;
- box-shadow:0 0 18px #ff426944;
-}
-.youtube{
- background:linear-gradient(135deg,#ff405f88,#9d173c99);
- border-color:#ff9cae;
- box-shadow:0 0 18px #ff315544;
-}
-.source{
- min-height:94px;
- display:flex;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- gap:9px;
-}
-.source b{font-size:12px}
-.source span{font-size:10px;color:#d2f4ff}
-
-input[type=text]{
- width:100%;
- padding:14px;
- border:1px solid #73e8ff99;
- border-radius:13px;
- background:#071b31aa;
  color:white;
- margin:8px 0;
- outline:none;
- box-shadow:inset 0 0 12px #00aaff22,0 0 10px #00bfff22;
+ background:
+ radial-gradient(circle at 20% 10%,#174d83 0,transparent 35%),
+ radial-gradient(circle at 90% 80%,#50217c 0,transparent 35%),
+ #050b19;
+ min-height:100vh;
+ padding:18px;
 }
-input[type=text]:focus{
- border-color:#8ff4ff;
- box-shadow:0 0 16px #00cfff77;
+.app{max-width:520px;margin:auto}
+.glass{
+ background:rgba(255,255,255,.075);
+ border:1px solid rgba(255,255,255,.17);
+ border-radius:24px;
+ padding:20px;
+ margin-bottom:16px;
+ box-shadow:0 8px 35px #0008,inset 0 1px 1px #ffffff20;
+ backdrop-filter:blur(18px);
+}
+.header{text-align:center}
+.logo{
+ width:105px;height:105px;border-radius:50%;
+ margin:auto;
+ display:grid;place-items:center;
+ font-size:36px;font-weight:bold;
+ color:#fff;
+ background:linear-gradient(135deg,#00d9ff,#744bff,#ff36c7);
+ box-shadow:0 0 20px #00d9ff,0 0 45px #744bff;
+}
+h1{margin:15px 0 5px;color:#fff}
+.gold{color:#ffd84d}
+.sub{color:#a8c9e9;font-size:13px}
+.status{
+ display:inline-block;
+ padding:8px 17px;border-radius:30px;
+ background:#102c43;border:1px solid #00d9ff;
+ color:#55eaff;font-size:12px;margin-top:12px
+}
+h3{margin-top:0;color:#53e8ff}
+.screen{
+ background:linear-gradient(135deg,#071629,#102c49);
+ padding:18px;border-radius:17px;
+ text-align:center;
+ border:1px solid #28658b;
+}
+.song{font-size:18px;font-weight:bold}
+.artist{font-size:12px;color:#a8c9e9;margin-top:8px}
+button{
+ border:1px solid #ffffff45;
+ border-radius:15px;
+ padding:13px 18px;
+ color:white;font-weight:bold;
+ background:linear-gradient(135deg,#1689b9aa,#753effaa);
+ box-shadow:0 0 15px #1689b955;
+ cursor:pointer;
+}
+button:active{transform:scale(.96)}
+.controls{
+ display:flex;justify-content:center;
+ gap:12px;flex-wrap:wrap;margin-top:18px
+}
+.mainbtn{
+ background:linear-gradient(135deg,#00d9ff,#694bff);
+ box-shadow:0 0 25px #00cfff77;
+ min-width:110px;
 }
 input[type=file]{
- width:100%;
- margin:12px 0;
- font-size:12px;
- color:#d8f5ff;
+ width:100%;margin:15px 0;color:#b8d7ef
 }
-input[type=range]{
- width:100%;
- accent-color:#25e4ff;
+input[type=range]{width:100%;accent-color:#00d9ff}
+.track{
+ padding:12px;margin:8px 0;
+ background:#ffffff0d;border-radius:12px;
+ border:1px solid #ffffff15;
+ display:flex;justify-content:space-between;
+ align-items:center;gap:8px;font-size:13px
 }
-audio{width:100%;margin:12px 0}
-iframe{
- width:100%;
- aspect-ratio:16/9;
- border:1px solid #79eaff;
- border-radius:15px;
- margin-top:12px;
- box-shadow:0 0 20px #00bfff55;
+.track button{padding:8px 12px}
+.meter{
+ height:8px;background:#172d44;
+ border-radius:20px;overflow:hidden;margin:15px 0
 }
-label{font-size:11px;color:#c6eaff}
-.row{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:10px;
- margin:13px 0;
+.meter span{
+ display:block;width:35%;height:100%;
+ background:linear-gradient(90deg,#00eaff,#b44bff);
+ box-shadow:0 0 15px #00eaff;
+ animation:move 2s infinite alternate
 }
-.small{font-size:10px;color:#a9c9df;line-height:1.7}
-
-footer{
- position:fixed;
- z-index:5;
- bottom:0;left:0;right:0;
- display:flex;
- justify-content:space-around;
- padding:14px 5px;
- background:#07172bd9;
- backdrop-filter:blur(20px);
- -webkit-backdrop-filter:blur(20px);
- border-top:1px solid #60eaff66;
- box-shadow:0 -8px 30px #008cff33;
-}
-footer a{
- color:#8ceeff;
- text-decoration:none;
- font-size:10px;
- font-weight:bold;
- text-shadow:0 0 10px #00cfff;
-}
+@keyframes move{to{width:95%}}
+.footer{text-align:center;color:#819bb6;font-size:11px;padding:15px}
 </style>
 </head>
+
 <body>
-<header>
-<div class="logo">88</div>
-<div><h1>DEMEN FM STUDIO PRO</h1><p>Emang Ndemenin • Radionya Cilacap</p></div>
-<div class="status" id="status">● MEMUAT</div>
-</header>
-<main>
-<section class="panel now">
-<div class="heading">● ON AIR STUDIO</div>
-<div class="sub">DEMEN FM 88 • LIVE BROADCAST</div>
-<div class="song" id="nowPlaying">Studio Siap Mengudara</div>
-<div class="meter">
-<i style="--h:30%"></i><i style="--h:65%"></i><i style="--h:45%"></i><i style="--h:85%"></i><i style="--h:55%"></i><i style="--h:75%"></i><i style="--h:35%"></i><i style="--h:95%"></i><i style="--h:60%"></i><i style="--h:40%"></i>
+<div class="app">
+
+<div class="glass header">
+ <div class="logo">88</div>
+ <h1>DEMEN FM <span class="gold">STUDIO PRO</span></h1>
+ <div class="sub">EMANG NDEMENIN • RADIONYA CILACAP</div>
+ <div class="status" id="status">● STUDIO SIAP</div>
 </div>
-<div class="sub" id="serverInfo">Memeriksa koneksi studio...</div>
-</section>
 
-<section class="panel">
-<div class="heading">01 • KONTROL SERVER</div>
-<div class="grid">
-<button class="green" onclick="serverStart()">NYALAKAN SERVER</button>
-<button class="red" onclick="serverStop()">STOP SERVER</button>
+<div class="glass">
+ <h3>◉ ON AIR STUDIO</h3>
+ <div class="screen">
+  <div class="song" id="nowPlaying">DEMEN FM 88</div>
+  <div class="artist" id="artist">Pilih musik untuk memulai Auto DJ</div>
+  <div class="meter"><span></span></div>
+  <div class="sub" id="playStatus">AUTO DJ STANDBY</div>
+ </div>
+ <div class="controls">
+  <button onclick="previousSong()">⏮</button>
+  <button class="mainbtn" onclick="togglePlay()" id="playBtn">▶ PLAY</button>
+  <button onclick="nextSong()">⏭</button>
+ </div>
 </div>
-</section>
 
-<section class="panel">
-<div class="heading">02 • PILIH SUMBER AUDIO</div>
-<div class="grid">
-<button class="source primary" onclick="showSource('file')"><b>🎵 AUTO DJ</b><span>Musik dari HP</span></button>
-<button class="source youtube" onclick="showSource('youtube')"><b>▶ YOUTUBE DJ</b><span>Putar video</span></button>
-<button class="source green" onclick="showSource('mic')"><b>🎙 MICROPHONE</b><span>Siaran langsung</span></button>
-<button class="source" onclick="showSource('mixer')"><b>🎚 DIGITAL MIXER</b><span>Kontrol suara</span></button>
+<div class="glass">
+ <h3>♫ AUTO DJ MUSIC</h3>
+ <input type="file" id="musicFiles" accept="audio/*" multiple>
+ <div id="songList"></div>
 </div>
-</section>
 
-<section class="panel" id="filePanel">
-<div class="heading">03 • AUTO DJ MUSIK LOKAL</div>
-<input type="file" id="musicFiles" accept="audio/*" multiple>
-<audio id="audioPlayer" controls></audio>
-<div class="grid">
-<button class="primary" onclick="playMusic()">▶ PUTAR</button>
-<button onclick="pauseMusic()">Ⅱ PAUSE</button>
-<button onclick="nextSong()">⏭ LAGU BERIKUTNYA</button>
-<button class="red" onclick="stopMusic()">■ STOP AUDIO</button>
+<div class="glass">
+ <h3>🎚 MIXER DIGITAL</h3>
+ <label>MASTER VOLUME</label>
+ <input type="range" min="0" max="100" value="80" id="volume">
+ <label>MICROPHONE LEVEL</label>
+ <input type="range" min="0" max="100" value="70">
+ <div class="controls">
+  <button onclick="muteAudio()">MUTE</button>
+  <button onclick="document.getElementById('musicFiles').click()">+ TAMBAH MUSIK</button>
+ </div>
 </div>
-<p class="small" id="songInfo">Belum ada lagu dipilih.</p>
-</section>
 
-<section class="panel" id="youtubePanel" style="display:none">
-<div class="heading">04 • YOUTUBE DJ</div>
-<input type="text" id="youtubeURL" placeholder="Tempel link YouTube di sini">
-<button class="youtube" onclick="openYouTube()">BUKA YOUTUBE</button>
-<div id="youtubePlayer"></div>
-<p class="small">Pratinjau YouTube. Belum otomatis masuk ke siaran server.</p>
-</section>
-
-<section class="panel" id="micPanel" style="display:none">
-<div class="heading">05 • MICROPHONE STUDIO</div>
-<div class="grid">
-<button class="green" onclick="aktifkanMic()">🎙 AKTIFKAN MIC</button>
-<button class="red" onclick="matikanMic()">MATIKAN MIC</button>
+<div class="glass">
+ <h3>📡 KONEKSI RADIO</h3>
+ <div class="sub">Status Auto DJ lokal. Koneksi server siaran memerlukan konfigurasi streaming tersendiri.</div>
+ <div class="status">● AUTO DJ LOCAL</div>
 </div>
-<div class="row"><label>MONITOR HEADPHONE</label><input type="checkbox" id="monitor"></div>
-<div class="row"><label>LEVEL MICROPHONE</label><span id="micValue">80%</span></div>
-<input type="range" id="micGain" min="0" max="100" value="80">
-<p class="small" id="micInfo">Mic belum aktif.</p>
-</section>
 
-<section class="panel" id="mixerPanel" style="display:none">
-<div class="heading">06 • DIGITAL MIXER</div>
-<div class="row"><label>AUTO DJ VOLUME</label><b id="djValue">80%</b></div>
-<input type="range" id="djVolume" min="0" max="100" value="80">
-<div class="row"><label>YOUTUBE VOLUME</label><b id="ytValue">80%</b></div>
-<input type="range" id="ytVolume" min="0" max="100" value="80">
-<div class="row"><label>MIC VOLUME</label><b id="mixMicValue">80%</b></div>
-<input type="range" id="mixMic" min="0" max="100" value="80">
-<div class="row"><label>REVERB</label><b id="reverbValue">20%</b></div>
-<input type="range" id="reverb" min="0" max="100" value="20">
-<p class="small">Slider ini belum mengatur audio Liquidsoap.</p>
-</section>
-</main>
+<div class="footer">
+ DEMEN FM 88 • EMANG NDEMENIN<br>
+ STUDIO PRO ANDROID
+</div>
+</div>
 
-<footer>
-<a href="#filePanel">🎵 AUTO DJ</a>
-<a href="#youtubePanel">▶ YOUTUBE</a>
-<a href="#micPanel">🎙 MIC</a>
-<a href="#mixerPanel">🎚 MIXER</a>
-</footer>
+<audio id="audioPlayer" preload="metadata"></audio>
 
 <script>
-const SERVER="http://127.0.0.1:8765";
+const audio=document.getElementById('audioPlayer');
+const filesInput=document.getElementById('musicFiles');
+const nowPlaying=document.getElementById('nowPlaying');
+const artist=document.getElementById('artist');
+const playBtn=document.getElementById('playBtn');
+const status=document.getElementById('status');
 
-async function checkServer(){
- try{
-  const r=await fetch(SERVER+"/status");
-  if(!r.ok)throw Error("HTTP "+r.status);
-  document.getElementById("status").textContent="● ONLINE";
-  document.getElementById("serverInfo").textContent="Server terhubung";
- }catch(e){
-  document.getElementById("status").textContent="● OFFLINE";
-  document.getElementById("serverInfo").textContent="Server belum terhubung";
- }
-}
-async function serverStart(){
- try{
-  const r=await fetch(SERVER+"/start",{method:"POST"});
-  if(!r.ok)throw Error();
-  checkServer();
- }catch(e){alert("Server belum dapat dihubungi");}
-}
-async function serverStop(){
- if(!confirm("Hentikan server Demen FM?"))return;
- try{
-  const r=await fetch(SERVER+"/stop",{method:"POST"});
-  if(!r.ok)throw Error();
-  checkServer();
- }catch(e){alert("Server belum dapat dihubungi");}
-}
-function showSource(name){
- ["file","youtube","mic","mixer"].forEach(x=>{
-  document.getElementById(x+"Panel").style.display=x===name?"block":"none";
+let songs=[];
+let currentIndex=0;
+let muted=false;
+
+filesInput.addEventListener('change',function(){
+ songs=Array.from(this.files);
+ currentIndex=0;
+ renderSongs();
+ if(songs.length) loadSong(0);
+});
+
+function renderSongs(){
+ const list=document.getElementById('songList');
+ list.innerHTML='';
+ songs.forEach((song,i)=>{
+  const div=document.createElement('div');
+  div.className='track';
+  const name=document.createElement('span');
+  name.textContent=(i+1)+'. '+song.name;
+  const btn=document.createElement('button');
+  btn.textContent='PUTAR';
+  btn.onclick=()=>loadSong(i);
+  div.append(name,btn);
+  list.appendChild(div);
  });
 }
-const files=document.getElementById("musicFiles");
-const player=document.getElementById("audioPlayer");
-let songs=[],index=0,objectURL=null;
-files.onchange=()=>{
- songs=Array.from(files.files);index=0;loadSong();
-};
-function loadSong(){
- if(!songs.length)return;
- if(objectURL)URL.revokeObjectURL(objectURL);
- objectURL=URL.createObjectURL(songs[index]);
- player.src=objectURL;
- document.getElementById("songInfo").textContent=songs[index].name;
- document.getElementById("nowPlaying").textContent=songs[index].name;
-}
-function playMusic(){
- if(!songs.length)return alert("Pilih lagu dahulu");
- player.play().catch(()=>alert("Tidak bisa memutar lagu"));
-}
-function pauseMusic(){player.pause();}
-function stopMusic(){player.pause();player.currentTime=0;}
-function nextSong(){
- if(!songs.length)return;
- index=(index+1)%songs.length;loadSong();playMusic();
-}
-player.onended=nextSong;
 
-function openYouTube(){
- let url=document.getElementById("youtubeURL").value.trim(),id="";
- try{
-  const u=new URL(url);
-  if(u.hostname.includes("youtu.be"))id=u.pathname.slice(1);
-  else id=u.searchParams.get("v")||"";
- }catch(e){}
- if(!id)return alert("Link YouTube tidak valid");
- document.getElementById("youtubePlayer").innerHTML=
- '<iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
- document.getElementById("nowPlaying").textContent="YouTube DJ";
+function loadSong(index){
+ if(!songs.length)return;
+ currentIndex=(index+songs.length)%songs.length;
+ audio.src=URL.createObjectURL(songs[currentIndex]);
+ nowPlaying.textContent=songs[currentIndex].name;
+ artist.textContent='DEMEN FM AUTO DJ';
+ audio.play().then(()=>{
+  playBtn.textContent='❚❚ PAUSE';
+  status.textContent='● AUTO DJ PLAYING';
+  document.getElementById('playStatus').textContent='SEDANG MEMUTAR';
+ }).catch(()=>{});
 }
 
-let micStream=null,micContext=null,micGainNode=null;
-async function aktifkanMic(){
- try{
-  micStream=await navigator.mediaDevices.getUserMedia({audio:true});
-  micContext=new AudioContext();
-  const source=micContext.createMediaStreamSource(micStream);
-  micGainNode=micContext.createGain();
-  micGainNode.gain.value=Number(document.getElementById("micGain").value)/100;
-  source.connect(micGainNode);
-  if(document.getElementById("monitor").checked)micGainNode.connect(micContext.destination);
-  document.getElementById("micInfo").textContent="Mic aktif pada perangkat ini";
-  document.getElementById("nowPlaying").textContent="MICROPHONE AKTIF";
- }catch(e){alert("Mic gagal aktif. Periksa izin mikrofon dan HTTPS.");}
+function togglePlay(){
+ if(!songs.length){
+  filesInput.click();
+  return;
+ }
+ if(audio.paused){
+  if(!audio.src)loadSong(currentIndex);
+  else audio.play().catch(()=>{});
+ }else audio.pause();
 }
-function matikanMic(){
- if(micStream)micStream.getTracks().forEach(t=>t.stop());
- if(micContext)micContext.close();
- micStream=null;micContext=null;micGainNode=null;
- document.getElementById("micInfo").textContent="Mic mati";
-}
-document.getElementById("micGain").oninput=e=>{
- document.getElementById("micValue").textContent=e.target.value+"%";
- if(micGainNode)micGainNode.gain.value=e.target.value/100;
-};
-document.getElementById("monitor").onchange=e=>{
- if(!micGainNode||!micContext)return;
- micGainNode.disconnect();
- if(e.target.checked)micGainNode.connect(micContext.destination);
-};
-[
- ["djVolume","djValue"],["ytVolume","ytValue"],
- ["mixMic","mixMicValue"],["reverb","reverbValue"]
-].forEach(([id,out])=>{
- document.getElementById(id).oninput=e=>{
-  document.getElementById(out).textContent=e.target.value+"%";
- };
+
+audio.addEventListener('play',()=>{
+ playBtn.textContent='❚❚ PAUSE';
+ status.textContent='● STUDIO BERMAIN';
 });
-checkServer();
-setInterval(checkServer,10000);
+audio.addEventListener('pause',()=>{
+ playBtn.textContent='▶ PLAY';
+});
+audio.addEventListener('ended',nextSong);
+
+function nextSong(){
+ if(songs.length)loadSong(currentIndex+1);
+}
+function previousSong(){
+ if(songs.length)loadSong(currentIndex-1);
+}
+document.getElementById('volume').addEventListener('input',e=>{
+ audio.volume=e.target.value/100;
+});
+audio.volume=.8;
+
+function muteAudio(){
+ muted=!muted;
+ audio.muted=muted;
+}
 </script>
 </body>
 </html>

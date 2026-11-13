@@ -3,107 +3,384 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071b36">
-<title>Demen FM Studio</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080d19">
+<title>Demen FM Pro Studio</title>
 <style>
+:root{
+ --bg:#080d19;--panel:#111b2c;--panel2:#17243a;
+ --blue:#08b9f5;--gold:#f5c84c;--muted:#8395ae;
+ --green:#20d995;--red:#fa5269;
+}
 *{box-sizing:border-box}
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#071b36;
- color:white;
- text-align:center;
+ margin:0;background:var(--bg);color:#f4f7ff;
+ font-family:Arial,sans-serif;padding-bottom:85px;
 }
 header{
- background:#087eaa;
- padding:25px 15px;
+ padding:17px 18px;background:linear-gradient(120deg,#102c4b,#101827);
+ border-bottom:1px solid #263750;
+ display:flex;align-items:center;justify-content:space-between;
+ position:sticky;top:0;z-index:10;
 }
+.brand{display:flex;align-items:center;gap:11px}
 .logo{
- font-size:48px;
- font-weight:bold;
- color:#ffd84d;
+ width:49px;height:49px;border-radius:14px;
+ background:linear-gradient(145deg,#08b9f5,#07518b);
+ display:grid;place-items:center;color:#ffe078;
+ font-size:25px;font-weight:900;
+ box-shadow:0 0 20px #08b9f544;
 }
-h1{margin:5px 0;font-size:25px}
-main{padding:20px}
-.panel{
- background:#102d4d;
- border-radius:15px;
- padding:20px;
- margin:15px auto;
- max-width:450px;
+.brand h2{font-size:17px;margin:0;letter-spacing:1px}
+.brand small{color:var(--muted);font-size:9px;letter-spacing:2px}
+.live{
+ color:var(--green);font-size:10px;font-weight:bold;
+ border:1px solid #20d99566;border-radius:30px;padding:8px 10px;
 }
-.status{
- color:#50e69a;
- font-size:20px;
- font-weight:bold;
+main{max-width:650px;margin:auto;padding:17px}
+.page{display:none}
+.page.active{display:block}
+.eyebrow{color:var(--blue);font-size:10px;letter-spacing:2px;font-weight:bold}
+h1{font-size:25px;margin:8px 0}
+h3{font-size:14px;margin:0 0 15px}
+.card{
+ background:linear-gradient(145deg,#15243a,#101827);
+ border:1px solid #263750;border-radius:19px;
+ padding:17px;margin-bottom:15px;
+ box-shadow:0 8px 25px #0003;
 }
-.song{
- font-size:17px;
- color:#ffd84d;
- margin:15px 0;
+.hero{
+ background:radial-gradient(circle at 80% 20%,#07517a,#14243b 48%,#101827);
+ border:1px solid #17618a;border-radius:22px;
+ padding:20px;margin-bottom:16px;overflow:hidden;
 }
+.hero-top{display:flex;justify-content:space-between;align-items:center}
+.hero h1{font-size:26px;margin:17px 0 5px}
+.hero p{font-size:12px;color:#a9bfd6;margin:0}
+.disc{
+ width:110px;height:110px;border-radius:50%;
+ border:5px solid #314761;
+ background:radial-gradient(circle,#f4d16a 0 8%,#111827 10% 23%,#283d59 25% 55%,#0a1527 58%);
+ display:grid;place-items:center;
+ box-shadow:0 0 28px #08b9f566;
+ animation:spin 9s linear infinite;
+}
+.disc span{font-size:10px;font-weight:bold;color:#ffe078}
+@keyframes spin{to{transform:rotate(360deg)}}
+.visualizer{
+ height:43px;display:flex;align-items:center;justify-content:center;
+ gap:4px;margin:17px 0;
+}
+.visualizer i{
+ width:5px;border-radius:5px;background:linear-gradient(#12d8ff,#0874c5);
+ animation:wave .8s ease-in-out infinite alternate;
+}
+.visualizer i:nth-child(3n){animation-delay:.3s}
+.visualizer i:nth-child(2n){animation-delay:.5s}
+@keyframes wave{from{height:7px}to{height:38px}}
+.track{font-size:15px;font-weight:bold;margin:8px 0}
+.sub{font-size:11px;color:var(--muted)}
+.actions{display:flex;gap:9px;margin-top:15px}
 button{
- width:100%;
- padding:15px;
- margin:8px 0;
- border:0;
- border-radius:10px;
- font-size:17px;
- font-weight:bold;
+ border:0;border-radius:12px;padding:13px 15px;
+ font-size:12px;font-weight:bold;cursor:pointer;
 }
-.start{background:#12b76a;color:white}
-.stop{background:#dc3545;color:white}
-.refresh{background:#087eaa;color:white}
-small{color:#b9c9d8}
+.primary{background:linear-gradient(120deg,#08b9f5,#0877c9);color:white}
+.secondary{background:#243650;color:#eaf4ff}
+.gold{background:linear-gradient(120deg,#ffe18a,#d6a62e);color:#172033}
+.danger{background:#582536;color:#ff91a1}
+.full{width:100%}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:#111e31;border:1px solid #253750;padding:14px;border-radius:15px}
+.stat strong{display:block;font-size:19px;color:var(--blue);margin-top:7px}
+.stat span{font-size:10px;color:var(--muted)}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.menu{
+ background:#142239;border:1px solid #293e5c;border-radius:15px;
+ padding:17px 12px;text-align:left;cursor:pointer;
+}
+.menu .ico{font-size:24px;margin-bottom:10px}
+.menu b{font-size:12px;display:block}
+.menu small{font-size:10px;color:var(--muted)}
+.nav{
+ position:fixed;bottom:0;left:0;right:0;z-index:20;
+ background:#101a2a;border-top:1px solid #293951;
+ display:flex;justify-content:space-around;padding:10px 3px 13px;
+}
+.nav button{
+ background:transparent;color:#8193aa;padding:7px 9px;
+ font-size:10px;flex:1;
+}
+.nav button.active{color:var(--blue)}
+.nav span{display:block;font-size:20px;margin-bottom:4px}
+input{
+ width:100%;background:#091424;color:white;
+ border:1px solid #344965;border-radius:11px;
+ padding:13px;font-size:13px;margin:7px 0;
+}
+.list-item{
+ display:flex;align-items:center;gap:11px;
+ padding:12px 0;border-bottom:1px solid #29384c;
+}
+.list-item:last-child{border:0}
+.number{
+ width:34px;height:34px;background:#203753;
+ border-radius:10px;display:grid;place-items:center;color:var(--blue);
+}
+.list-item b{font-size:12px}
+.list-item small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+video,iframe{width:100%;border:0;border-radius:13px}
+#player{width:100%;margin-top:12px}
+.note{font-size:10px;color:var(--muted);line-height:1.6}
 </style>
 </head>
 <body>
 
 <header>
- <div class="logo">88</div>
- <h1>DEMEN FM STUDIO</h1>
- <div>Emang Ndemenin</div>
+ <div class="brand">
+  <div class="logo">88</div>
+  <div>
+   <h2>DEMEN FM</h2>
+   <small>PRO BROADCAST STUDIO</small>
+  </div>
+ </div>
+ <div class="live">● STUDIO</div>
 </header>
 
 <main>
- <div class="panel">
-  <h2>📻 KONTROL AUTO DJ</h2>
-  <div class="status" id="status">MEMERIKSA...</div>
-  <div class="song" id="song">Menunggu informasi lagu</div>
-  <button class="refresh" onclick="cekStatus()">CEK STATUS</button>
-  <button class="start" onclick="kontrol('start')">▶ START AUTO DJ</button>
-  <button class="stop" onclick="kontrol('stop')">■ STOP AUTO DJ</button>
+
+<section id="home" class="page active">
+ <div class="hero">
+  <div class="hero-top">
+   <div>
+    <div class="eyebrow">BROADCAST CONTROL</div>
+    <h1>STUDIO<br>CONTROL</h1>
+    <p>Emang Ndemenin • Radionya Cilacap</p>
+   </div>
+   <div class="disc"><span>DEMEN FM</span></div>
+  </div>
+  <div class="visualizer">
+   <i></i><i></i><i></i><i></i><i></i><i></i>
+   <i></i><i></i><i></i><i></i><i></i><i></i>
+   <i></i><i></i><i></i><i></i><i></i><i></i>
+   <i></i><i></i><i></i>
+  </div>
+  <div class="sub">NOW PLAYING</div>
+  <div class="track" id="nowPlaying">DEMEN FM AUTO DJ</div>
+  <div class="sub" id="playState">Siap menerima playlist lokal</div>
+  <div class="actions">
+   <button class="primary" onclick="playLocal()">▶ PLAY</button>
+   <button class="secondary" onclick="pauseLocal()">Ⅱ PAUSE</button>
+  </div>
+  <audio id="player" controls></audio>
  </div>
- <small>Demen FM 88 - Radionya Cilacap</small>
+
+ <div class="stats">
+  <div class="stat">
+   <span>MODE RADIO</span>
+   <strong>AUTO DJ</strong>
+  </div>
+  <div class="stat">
+   <span>STATION</span>
+   <strong>88 FM</strong>
+  </div>
+ </div>
+
+ <h3 style="margin-top:22px">STUDIO MENU</h3>
+ <div class="menu-grid">
+  <div class="menu" onclick="showPage('music')">
+   <div class="ico">🎵</div><b>MUSIC LIBRARY</b>
+   <small>Koleksi lagu MP3</small>
+  </div>
+  <div class="menu" onclick="showPage('youtube')">
+   <div class="ico">▶️</div><b>YOUTUBE REQUEST</b>
+   <small>Pemutar lagu YouTube</small>
+  </div>
+  <div class="menu" onclick="showPage('queue')">
+   <div class="ico">📋</div><b>PLAYLIST QUEUE</b>
+   <small>Antrean lagu</small>
+  </div>
+  <div class="menu" onclick="showPage('mixer')">
+   <div class="ico">🎚️</div><b>AUDIO MIXER</b>
+   <small>Kontrol audio</small>
+  </div>
+ </div>
+</section>
+
+<section id="music" class="page">
+ <div class="eyebrow">AUDIO LIBRARY</div>
+ <h1>Music Library</h1>
+ <div class="card">
+  <h3>Tambahkan koleksi MP3</h3>
+  <input type="file" id="files" accept="audio/*" multiple>
+  <p class="note">Pilih lagu dari penyimpanan HP. Lagu dapat diputar sebagai preview di aplikasi ini.</p>
+ </div>
+ <div class="card">
+  <h3>DAFTAR LAGU</h3>
+  <div id="musicList" class="note">Belum ada lagu dipilih.</div>
+ </div>
+ <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+</section>
+
+<section id="youtube" class="page">
+ <div class="eyebrow">MUSIC REQUEST</div>
+ <h1>YouTube Player</h1>
+ <div class="card">
+  <h3>PUTAR VIDEO YOUTUBE</h3>
+  <input id="ytInput" placeholder="Tempel link YouTube di sini">
+  <button class="primary full" onclick="loadYoutube()">▶ PUTAR YOUTUBE</button>
+  <div id="ytFrame" style="margin-top:15px">
+   <div class="note">Pemutar YouTube akan tampil di sini.</div>
+  </div>
+  <p class="note">Gunakan pemutar resmi YouTube. Video tertentu mungkin membatasi pemutaran di aplikasi lain. Pemutaran YouTube di sini belum masuk ke siaran radio.</p>
+ </div>
+ <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+</section>
+
+<section id="queue" class="page">
+ <div class="eyebrow">PLAYOUT SYSTEM</div>
+ <h1>Playlist Queue</h1>
+ <div class="card">
+  <h3>ANTREAN LAGU</h3>
+  <div id="queueList" class="note">Antrean masih kosong.</div>
+  <button class="danger full" onclick="clearQueue()">HAPUS ANTREAN</button>
+ </div>
+ <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+</section>
+
+<section id="mixer" class="page">
+ <div class="eyebrow">SOUND CONTROL</div>
+ <h1>Audio Mixer</h1>
+ <div class="card">
+  <h3>PREVIEW PLAYER VOLUME</h3>
+  <label class="sub">Volume pemutar lokal</label>
+  <input type="range" min="0" max="100" value="80" id="volume">
+  <p class="note">Pengaturan ini hanya memengaruhi preview audio di aplikasi, bukan volume siaran Liquidsoap.</p>
+ </div>
+ <div class="card">
+  <h3>MICROPHONE</h3>
+  <button class="primary full" onclick="micTest()">🎙 TES IZIN MIKROFON</button>
+  <p id="micState" class="note">Mikrofon belum dites.</p>
+  <p class="note">Tes ini hanya memeriksa izin mikrofon. Belum mengirim suara ke siaran.</p>
+ </div>
+ <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+</section>
+
 </main>
 
-<script>
-async function cekStatus(){
- try{
-  const r=await fetch('/status');
-  const d=await r.json();
-  document.getElementById('status').textContent=
-   d.running?'AUTO DJ AKTIF':'AUTO DJ MATI';
-  document.getElementById('song').textContent=
-   d.song||d.current_song||'Informasi lagu belum tersedia';
- }catch(e){
-  document.getElementById('status').textContent='SERVER TIDAK TERHUBUNG';
- }
-}
-async function kontrol(aksi){
- if(!confirm('Jalankan perintah '+aksi+' Auto DJ?'))return;
- try{
-  const r=await fetch('/'+aksi,{method:'POST'});
-  alert(await r.text());
-  cekStatus();
- }catch(e){
-  alert('Perintah gagal. Periksa server.');
- }
-}
-cekStatus();
-setInterval(cekStatus,5000);
-</script>
+<nav class="nav">
+ <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>HOME</button>
+ <button data-page="music" onclick="showPage('music')"><span>♫</span>MUSIC</button>
+ <button data-page="youtube" onclick="showPage('youtube')"><span>▶</span>YOUTUBE</button>
+ <button data-page="queue" onclick="showPage('queue')"><span>☷</span>QUEUE</button>
+ <button data-page="mixer" onclick="showPage('mixer')"><span>🎚</span>MIXER</button>
+</nav>
 
+<script>
+let songs=[];
+let queue=[];
+let currentURL=null;
+const player=document.getElementById('player');
+
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>{
+  b.classList.toggle('active',b.dataset.page===id);
+ });
+}
+
+document.getElementById('files').addEventListener('change',function(){
+ songs=Array.from(this.files);
+ const box=document.getElementById('musicList');
+ box.innerHTML='';
+ songs.forEach((song,i)=>{
+  const div=document.createElement('div');
+  div.className='list-item';
+  const number=document.createElement('div');
+  number.className='number';
+  number.textContent=i+1;
+  const info=document.createElement('div');
+  info.style.flex='1';
+  const name=document.createElement('b');
+  name.textContent=song.name;
+  const size=document.createElement('small');
+  size.textContent=(song.size/1048576).toFixed(2)+' MB';
+  info.append(name,size);
+  const btn=document.createElement('button');
+  btn.className='secondary';
+  btn.textContent='PLAY';
+  btn.onclick=()=>playSong(i);
+  div.append(number,info,btn);
+  box.append(div);
+ });
+});
+
+function playSong(i){
+ if(!songs[i])return;
+ if(currentURL)URL.revokeObjectURL(currentURL);
+ currentURL=URL.createObjectURL(songs[i]);
+ player.src=currentURL;
+ player.play();
+ document.getElementById('nowPlaying').textContent=songs[i].name;
+ document.getElementById('playState').textContent='LOCAL PREVIEW';
+ queue.push(songs[i].name);
+ renderQueue();
+}
+
+function playLocal(){player.play()}
+function pauseLocal(){player.pause()}
+
+player.addEventListener('ended',()=>{
+ document.getElementById('playState').textContent='PREVIEW SELESAI';
+});
+player.addEventListener('play',()=>{
+ document.getElementById('playState').textContent='PREVIEW BERJALAN';
+});
+player.addEventListener('pause',()=>{
+ if(player.currentTime>0)
+ document.getElementById('playState').textContent='PREVIEW DIJEDA';
+});
+
+document.getElementById('volume').addEventListener('input',function(){
+ player.volume=this.value/100;
+});
+
+function renderQueue(){
+ const box=document.getElementById('queueList');
+ box.innerHTML='';
+ if(!queue.length){box.textContent='Antrean masih kosong.';return}
+ queue.forEach((name,i)=>{
+  const div=document.createElement('div');
+  div.className='list-item';
+  const num=document.createElement('div');
+  num.className='number';num.textContent=i+1;
+  const title=document.createElement('b');
+  title.textContent=name;
+  div.append(num,title);box.append(div);
+ });
+}
+function clearQueue(){queue=[];renderQueue()}
+
+function loadYoutube(){
+ const value=document.getElementById('ytInput').value.trim();
+ const match=value.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+ if(!match){alert('Masukkan link video YouTube yang benar.');return}
+ const id=match[1];
+ document.getElementById('ytFrame').innerHTML=
+ '<iframe height="220" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+}
+
+async function micTest(){
+ const label=document.getElementById('micState');
+ try{
+  const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+  stream.getTracks().forEach(t=>t.stop());
+  label.textContent='Izin mikrofon berhasil. Tes selesai.';
+ }catch(e){
+  label.textContent='Mikrofon tidak diizinkan atau tidak tersedia.';
+ }
+}
+</script>
 </body>
 </html>

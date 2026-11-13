@@ -4,175 +4,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071b36">
-<title>Demen FM Studio App</title>
-
+<meta name="theme-color" content="#061a38">
+<title>Demen FM 88 - Studio Mixer</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- background:#071b36;
- color:white;
- font-family:Arial,sans-serif;
-}
-header{
- background:#087eaa;
- text-align:center;
- padding:25px 10px;
-}
-header h1{color:#ffdf45;margin:0;font-size:28px}
-header p{margin:8px 0 0}
-main{max-width:500px;margin:auto;padding:18px}
-.panel{
- background:#102c4d;
- padding:20px;
- border-radius:14px;
- margin-bottom:18px;
-}
-h2{color:#ffdf45;font-size:20px;margin-top:0}
-.status{
- background:#061629;
- padding:18px;
- border-radius:9px;
- text-align:center;
- color:#ffdf45;
- font-weight:bold;
- margin:12px 0;
-}
-button{
- width:100%;
- padding:16px;
- border:0;
- border-radius:9px;
- font-size:16px;
- font-weight:bold;
- margin:7px 0;
- color:white;
-}
-.start{background:#16ad65}
-.stop{background:#df4141}
-.blue{background:#087eaa}
-button:disabled{opacity:.5}
-.info{color:#b8cee0;font-size:13px;line-height:1.6}
-footer{text-align:center;color:#91aabe;padding:20px}
+body{margin:0;background:#06152e;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:25px 12px;background:linear-gradient(135deg,#003b88,#071a43,#0069a8);border-bottom:3px solid #08baff}
+.logo{font-size:55px;font-weight:900;color:#ffdf22;text-shadow:2px 3px 5px #000}
+header h1{margin:0;font-size:27px;color:#ffdf22}
+header p{margin:7px 0 0}
+.container{max-width:950px;margin:auto;padding:12px}
+.status{background:#071f49;border:1px solid #168bff;border-radius:12px;padding:14px;margin-bottom:12px;text-align:center}
+.green{color:#37ff68}
+.red{color:#ff5757}
+.card{background:linear-gradient(145deg,#103d82,#071a3b);border:1px solid #168bff;border-radius:15px;padding:16px;margin-bottom:13px;box-shadow:0 0 10px #005bba}
+h2{margin:0 0 12px;color:#39baff;font-size:21px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+button{border:0;border-radius:10px;padding:13px 15px;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+button:active{transform:scale(.97)}
+.greenbtn{background:linear-gradient(#18e65a,#008a37)}
+.redbtn{background:linear-gradient(#ff5252,#bd1010)}
+.bluebtn{background:linear-gradient(#168cff,#0049b8)}
+.graybtn{background:#455b78}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.controls button{flex:1;min-width:90px}
+.value{font-size:28px;font-weight:bold;color:#ffdf22}
+input[type=range]{width:100%;accent-color:#08aaff}
+label{display:block;margin:13px 0 5px}
+input[type=file]{width:100%;padding:10px;background:#102b53;border-radius:8px;color:white}
+.small{font-size:13px;color:#b9d8ff;line-height:1.5}
+.switchrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.switchrow button{min-width:85px}
+audio{width:100%;margin-top:10px}
+footer{text-align:center;padding:18px;color:#9fc9ef;font-size:13px}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>DEMEN FM 88</h1>
-<p>STUDIO ADMIN</p>
-<p>Emang Ndemenin - Radionya Cilacap</p>
+ <div class="logo">88</div>
+ <h1>DEMEN FM</h1>
+ <p><b>EMANG NDEMENIN</b></p>
+ <p>RADIONYA CILACAP • STUDIO MIXER</p>
 </header>
 
-<main>
+<div class="container">
 
-<div class="panel">
-<h2>🎵 AUTO DJ CONTROL</h2>
+ <div class="status">
+  <b>STATUS SERVER:</b>
+  <span id="status" class="red">Memeriksa...</span>
+  <p id="pesan" class="small">Menunggu koneksi Termux</p>
+ </div>
 
-<div class="status" id="status">
-MEMERIKSA KONEKSI...
+ <section class="card">
+  <h2>🎵 AUTO DJ CONTROL</h2>
+  <p class="small">Kontrol Auto DJ melalui Termux</p>
+  <div class="controls">
+   <button class="greenbtn" onclick="perintah('start')">▶ MULAI</button>
+   <button class="redbtn" onclick="perintah('stop')">■ STOP</button>
+   <button class="bluebtn" onclick="cekStatus()">↻ STATUS</button>
+  </div>
+ </section>
+
+ <div class="grid">
+  <section class="card">
+   <h2>🎚️ MIXER MUSIK</h2>
+   <div class="value" id="musicValue">70%</div>
+   <label>Volume musik normal</label>
+   <input type="range" min="0" max="100" value="70"
+    oninput="musicValue.textContent=this.value+'%'">
+   <label>Volume saat mic bicara</label>
+   <div class="value" id="duckValue">35%</div>
+   <input type="range" min="0" max="100" value="35"
+    oninput="duckValue.textContent=this.value+'%'">
+  </section>
+
+  <section class="card">
+   <h2>🎙️ MIC PENYIAR</h2>
+   <p class="small">Gunakan headset dengan mikrofon.</p>
+   <div class="controls">
+    <button class="greenbtn" onclick="micOn()">MIC ON</button>
+    <button class="redbtn" onclick="micOff()">MIC OFF</button>
+   </div>
+   <p id="micStatus" class="small">Mic belum diaktifkan</p>
+   <label>Volume mic (pengaturan tampilan)</label>
+   <div class="value" id="micValue">80%</div>
+   <input type="range" min="0" max="100" value="80"
+    oninput="micValue.textContent=this.value+'%'">
+  </section>
+ </div>
+
+ <section class="card">
+  <h2>🎛️ AUTO DUCKING</h2>
+  <div class="switchrow">
+   <div>
+    <b>Musik mengecil saat mic aktif</b>
+    <p class="small">Pengaturan otomatis saat penyiar bicara</p>
+   </div>
+   <button id="duckBtn" class="greenbtn" onclick="toggleDucking()">ON</button>
+  </div>
+  <p class="small" id="duckStatus">Ducking disiapkan</p>
+ </section>
+
+ <div class="grid">
+  <section class="card">
+   <h2>✨ EFEK REVERB</h2>
+   <div class="switchrow">
+    <b>Efek gema</b>
+    <button id="reverbBtn" class="graybtn" onclick="toggleReverb()">OFF</button>
+   </div>
+   <label>Level reverb</label>
+   <div class="value" id="reverbValue">30%</div>
+   <input type="range" min="0" max="100" value="30"
+    oninput="reverbValue.textContent=this.value+'%'">
+  </section>
+
+  <section class="card">
+   <h2>🎧 MONITOR HEADSET</h2>
+   <p class="small">Gunakan headset untuk mendengarkan siaran dan menghindari suara speaker masuk kembali ke mic.</p>
+   <p id="headsetStatus" class="green">Siapkan headset</p>
+  </section>
+ </div>
+
+ <section class="card">
+  <h2>📁 BACA FILE / AUDIO</h2>
+  <p class="small">Pilih jingle, iklan, atau audio dari HP untuk diputar sebagai tes lokal.</p>
+  <input type="file" id="audioFile" accept="audio/*">
+  <audio id="filePlayer" controls></audio>
+  <button class="redbtn" onclick="stopFile()">STOP AUDIO</button>
+ </section>
+
+ <section class="card">
+  <h2>📡 INFORMASI SIARAN</h2>
+  <b>Demen FM 88 - Radionya Cilacap</b>
+  <p class="small">Media Informasi dan Hiburan</p>
+  <p class="small">Kontrol server: <span id="serverInfo">Menunggu...</span></p>
+ </section>
+
+ <section class="card">
+  <h2>💬 CHAT PENYIAR</h2>
+  <button class="greenbtn" style="width:100%"
+   onclick="window.open('https://wa.me/6285137397668','_blank')">
+   CHAT DJ DEMEN FM
+  </button>
+ </section>
+
 </div>
 
-<button class="start" id="btnStart" onclick="perintah('start')">
-▶ MULAI AUTO DJ
-</button>
-
-<button class="stop" id="btnStop" onclick="perintah('stop')">
-■ STOP AUTO DJ
-</button>
-
-<button class="blue" onclick="cekStatus()">
-↻ CEK STATUS
-</button>
-
-<p class="info" id="pesan">
-Menunggu koneksi Termux.
-</p>
-</div>
-
-<div class="panel">
-<h2>📻 SIARAN DEMEN FM</h2>
-<p>DEMEN FM 88 - RADIONYA CILACAP</p>
-<p class="info">Server streaming Caster.fm</p>
-</div>
-
-<div class="panel">
-<h2>🎙️ STUDIO PENYIAR</h2>
-<p class="info">
-Kontrol microphone akan kita sambungkan pada tahap berikutnya.
-</p>
-</div>
-
-<div class="panel">
-<h2>📂 AUTO DJ</h2>
-<p class="info">
-Musik dan playlist menggunakan file yang sudah disiapkan di Termux.
-</p>
-</div>
-
-</main>
-
-<footer>
-DEMEN FM 88 © 2026
-</footer>
+<footer>DEMEN FM 88 • EMANG NDEMENIN</footer>
 
 <script>
 const SERVER = "http://127.0.0.1:8765";
+let micStream = null;
+let ducking = true;
+let reverb = false;
 
 async function cekStatus(){
- const status = document.getElementById("status");
- const pesan = document.getElementById("pesan");
-
+ const statusEl=document.getElementById("status");
+ const info=document.getElementById("serverInfo");
  try{
-  const r = await fetch(SERVER + "/status");
+  const r=await fetch(SERVER+"/status");
   if(!r.ok) throw new Error("Server error");
-
-  const data = await r.json();
-
-  if(data.status === "hidup"){
-   status.innerText = "🟢 AUTO DJ HIDUP";
+  const data=await r.json();
+  if(data.status==="hidup"){
+   statusEl.textContent="● TERHUBUNG";
+   statusEl.className="green";
+   document.getElementById("pesan").textContent="Termux merespons";
   }else{
-   status.innerText = "🔴 AUTO DJ MATI";
+   statusEl.textContent="● AUTO DJ MATI";
+   statusEl.className="red";
+   document.getElementById("pesan").textContent="Server merespons, Auto DJ mati";
   }
-
-  pesan.innerText = "Koneksi Termux berhasil.";
+  info.textContent="Terhubung";
  }catch(e){
-  status.innerText = "⚠️ TIDAK TERHUBUNG";
-  pesan.innerText = "Periksa Termux dan server kontrol.";
+  statusEl.textContent="● TIDAK TERHUBUNG";
+  statusEl.className="red";
+  document.getElementById("pesan").textContent="Periksa Termux dan koneksi";
+  info.textContent="Tidak terhubung";
  }
 }
 
 async function perintah(aksi){
- const pesan = document.getElementById("pesan");
- const tombol = document.querySelectorAll("button");
-
- tombol.forEach(b=>b.disabled=true);
- pesan.innerText = "Mengirim perintah...";
-
+ document.getElementById("pesan").textContent="Mengirim perintah...";
  try{
-  const r = await fetch(SERVER + "/" + aksi,{
-   method:"POST"
-  });
-
-  if(!r.ok) throw new Error("Perintah gagal");
-
-  const hasil = await r.text();
-  pesan.innerText = hasil;
-
-  await cekStatus();
-
+  const r=await fetch(SERVER+"/"+aksi,{method:"POST"});
+  const t=await r.text();
+  document.getElementById("pesan").textContent=t;
+  setTimeout(cekStatus,1000);
  }catch(e){
-  pesan.innerText = "Gagal terhubung ke Termux.";
- }finally{
-  tombol.forEach(b=>b.disabled=false);
+  document.getElementById("pesan").textContent="Perintah gagal dikirim. Periksa koneksi.";
  }
+}
+
+async function micOn(){
+ try{
+  micStream=await navigator.mediaDevices.getUserMedia({audio:true});
+  document.getElementById("micStatus").textContent="Izin mikrofon aktif di HP";
+  document.getElementById("micStatus").className="green";
+  document.getElementById("headsetStatus").textContent="Mic HP/headset terdeteksi";
+ }catch(e){
+  document.getElementById("micStatus").textContent="Mic gagal diaktifkan: "+e.message;
+ }
+}
+
+function micOff(){
+ if(micStream){
+  micStream.getTracks().forEach(t=>t.stop());
+  micStream=null;
+ }
+ document.getElementById("micStatus").textContent="Mic lokal dimatikan";
+ document.getElementById("micStatus").className="small";
+}
+
+function toggleDucking(){
+ ducking=!ducking;
+ const b=document.getElementById("duckBtn");
+ b.textContent=ducking?"ON":"OFF";
+ b.className=ducking?"greenbtn":"graybtn";
+ document.getElementById("duckStatus").textContent=
+ ducking?"Auto Ducking dipilih":"Auto Ducking dimatikan";
+}
+
+function toggleReverb(){
+ reverb=!reverb;
+ const b=document.getElementById("reverbBtn");
+ b.textContent=reverb?"ON":"OFF";
+ b.className=reverb?"greenbtn":"graybtn";
+}
+
+document.getElementById("audioFile").addEventListener("change",function(){
+ const file=this.files[0];
+ if(file){
+  const player=document.getElementById("filePlayer");
+  player.src=URL.createObjectURL(file);
+  player.play();
+ }
+});
+
+function stopFile(){
+ const p=document.getElementById("filePlayer");
+ p.pause();
+ p.currentTime=0;
 }
 
 cekStatus();
 setInterval(cekStatus,10000);
 </script>
-
 </body>
 </html>

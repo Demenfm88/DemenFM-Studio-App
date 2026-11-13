@@ -6,59 +6,113 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071426">
 <title>Demen FM 88 Studio Pro</title>
-<style>
+
 *{box-sizing:border-box}
-body{margin:0;background:#071426;color:#eef7ff;
-font-family:Arial,sans-serif;padding-bottom:75px}
-header{padding:18px;background:linear-gradient(120deg,#063b65,#087eaa);
-display:flex;align-items:center;gap:13px}
-.logo{width:54px;height:54px;border-radius:15px;
-background:#fff;color:#087eaa;display:grid;place-items:center;
-font-size:25px;font-weight:900}
-h1{font-size:19px;margin:0}
+body{
+ margin:0;
+ background:radial-gradient(ellipse at top,#123d68 0%,#071426 55%,#020812 100%);
+ color:#effaff;
+ font-family:Arial,sans-serif;
+ padding-bottom:75px;
+}
+header{
+ padding:18px;
+ background:linear-gradient(120deg,#062d55,#087eaa,#123e72);
+ display:flex;
+ align-items:center;
+ gap:13px;
+ box-shadow:0 0 25px #00aaff88;
+ border-bottom:1px solid #35d5ff;
+}
+.logo{
+ width:54px;height:54px;border-radius:15px;
+ background:linear-gradient(135deg,#ffffff,#54dfff);
+ color:#06365a;
+ display:grid;place-items:center;
+ font-size:25px;font-weight:900;
+ box-shadow:0 0 12px #29d9ff,0 0 30px #008cff;
+}
+h1{font-size:19px;margin:0;text-shadow:0 0 12px #36cfff}
 header p{font-size:11px;margin:5px 0 0;color:#c7eaff}
-.status{margin-left:auto;font-size:10px;color:#7fffc2}
+.status{margin-left:auto;font-size:10px;color:#66ffbd;text-shadow:0 0 12px #00ff99}
 main{padding:14px;max-width:700px;margin:auto}
-.panel{background:#10243b;border:1px solid #1d3e5c;
-border-radius:17px;padding:15px;margin-bottom:14px}
-.heading{font-size:13px;font-weight:bold;letter-spacing:1px;
-color:#42caff;margin-bottom:13px}
-.now{background:linear-gradient(120deg,#10466a,#10243b)}
-.song{font-size:19px;font-weight:bold;margin:10px 0}
-.sub{font-size:11px;color:#9dbbd3}
+.panel{
+ background:linear-gradient(145deg,#102c49,#08182b);
+ border:1px solid #1689c9;
+ border-radius:17px;padding:15px;margin-bottom:14px;
+ box-shadow:0 0 8px #008cff55,0 0 22px #007bff22,
+ inset 0 0 15px #168cff12;
+}
+.heading{
+ font-size:13px;font-weight:bold;letter-spacing:1px;
+ color:#43d9ff;margin-bottom:13px;
+ text-shadow:0 0 10px #00bfff;
+}
+.now{
+ background:linear-gradient(120deg,#07558a,#10243b);
+ border-color:#32d8ff;
+ box-shadow:0 0 15px #00bfff77,0 0 35px #007bff33;
+}
+.song{font-size:19px;font-weight:bold;margin:10px 0;color:#fff;text-shadow:0 0 12px #28cfff}
+.sub{font-size:11px;color:#9dc9e9}
 .meter{display:flex;gap:3px;height:42px;align-items:end;margin:15px 0}
-.meter i{flex:1;background:linear-gradient(#39e6b1,#1687de);
-border-radius:3px;height:var(--h)}
+.meter i{
+ flex:1;background:linear-gradient(#6affd3,#00bfff,#126bff);
+ border-radius:3px;height:var(--h);
+ box-shadow:0 0 9px #00caff;
+}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-button{border:0;border-radius:12px;padding:13px 8px;
-font-weight:bold;color:white;background:#173b59;font-size:12px}
-button:active{transform:scale(.97)}
-button.primary{background:#087eaa}
-button.green{background:#087c5a}
-button.red{background:#a73543}
-button.youtube{background:#a72d36}
+button{
+ border:1px solid #168dca;border-radius:12px;padding:13px 8px;
+ font-weight:bold;color:white;
+ background:linear-gradient(145deg,#174b70,#102a47);
+ font-size:12px;
+ box-shadow:0 0 9px #008cff55;
+ transition:.2s;
+}
+button:active{transform:scale(.96);box-shadow:0 0 20px #00d9ff}
+button.primary{
+ background:linear-gradient(135deg,#008ed0,#0054aa);
+ box-shadow:0 0 15px #00aaff88;
+}
+button.green{
+ background:linear-gradient(135deg,#00bd82,#087c5a);
+ border-color:#39ffc0;box-shadow:0 0 15px #00ffae66;
+}
+button.red{
+ background:linear-gradient(135deg,#d9435b,#762036);
+ border-color:#ff5875;box-shadow:0 0 13px #ff315566;
+}
+button.youtube{
+ background:linear-gradient(135deg,#ff414b,#8f1627);
+ border-color:#ff6673;box-shadow:0 0 15px #ff263f77;
+}
 button:disabled{opacity:.45}
-.source{padding:17px 5px;display:flex;flex-direction:column;
-align-items:center;gap:8px;min-height:85px}
+.source{
+ padding:17px 5px;display:flex;flex-direction:column;
+ align-items:center;gap:8px;min-height:85px;
+}
 .source b{font-size:12px}
-.source span{font-size:10px;color:#a9c5dc}
-input[type=text]{width:100%;background:#071a2c;
-border:1px solid #31516d;padding:13px;border-radius:10px;
-color:white;margin:7px 0}
+.source span{font-size:10px;color:#b5d9f2}
+input[type=text]{
+ width:100%;background:#061629;border:1px solid #21b9ed;
+ padding:13px;border-radius:10px;color:white;margin:7px 0;
+ box-shadow:inset 0 0 10px #008cff33;
+}
 input[type=file]{width:100%;font-size:12px;margin:10px 0}
-input[type=range]{width:100%;accent-color:#24c5ff}
-iframe{width:100%;aspect-ratio:16/9;border:0;
-border-radius:12px;margin-top:10px}
+input[type=range]{width:100%;accent-color:#28d8ff}
+iframe{width:100%;aspect-ratio:16/9;border:1px solid #29cfff;border-radius:12px;margin-top:10px;box-shadow:0 0 15px #00aaff66}
 label{font-size:11px;color:#a9c5dc}
-.row{display:flex;justify-content:space-between;
-align-items:center;gap:10px;margin:12px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}
 .small{font-size:10px;color:#91adc5;line-height:1.6}
-footer{position:fixed;bottom:0;left:0;right:0;
-background:#0b2036;border-top:1px solid #23415e;
-display:flex;justify-content:space-around;padding:12px}
-footer a{color:#9dc9e7;text-decoration:none;font-size:10px}
-footer a:active{color:#36caff}
-</style>
+footer{
+ position:fixed;bottom:0;left:0;right:0;
+ background:#071a30ee;border-top:1px solid #168dca;
+ display:flex;justify-content:space-around;padding:12px;
+ box-shadow:0 0 20px #008cff66;
+}
+footer a{color:#69d9ff;text-decoration:none;font-size:10px;text-shadow:0 0 8px #00bfff}
+
 </head>
 <body>
 

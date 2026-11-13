@@ -1,223 +1,203 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DEMEN FM 88 - STUDIO</title>
-<link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#087eaa">
-<style>
-
-</head>
-<body>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="./manifest.json">
 <title>DEMEN FM 88 - STUDIO</title>
+
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#071b36;color:white;
- font-family:Arial,sans-serif;padding:16px;
-}
-header{
- text-align:center;background:#087eaa;
- padding:22px;border-radius:16px;
-}
-header h1{margin:0;color:#ffe15a;font-size:27px}
-header p{margin:8px 0 0}
-.card{
- background:#102e4c;padding:17px;
- border-radius:15px;margin-top:15px;
-}
-h3{color:#ffd84d;margin-top:0}
-.status{
- background:#071b36;padding:13px;
- border-radius:10px;text-align:center;
-}
-button{
- border:0;border-radius:10px;padding:13px;
- font-weight:bold;font-size:14px;cursor:pointer;
-}
-.green{background:#13a66b;color:white}
-.red{background:#d94343;color:white}
-.blue{background:#087eaa;color:white}
-.gray{background:#52677c;color:white}
-.buttons{display:flex;gap:8px;margin-top:12px}
-.buttons button{flex:1}
-input,select{
- width:100%;padding:13px;margin-top:10px;
- border-radius:9px;border:0;
- background:white;color:#172b40;
-}
-.song{
- background:#071b36;padding:12px;
- margin-top:8px;border-radius:9px;
- display:flex;align-items:center;gap:8px;
-}
-.song span{flex:1;overflow-wrap:anywhere}
-.song button{padding:9px}
-small{color:#a9c5dc}
-footer{text-align:center;color:#91abc0;margin:25px 0}
+body{margin:0;background:#071b36;color:white;font-family:Arial,sans-serif}
+header{background:#087eaa;text-align:center;padding:24px 12px}
+header h1{margin:0;font-size:27px}
+header p{margin:7px 0 0}
+main{max-width:600px;margin:auto;padding:16px}
+.panel{background:#102b4b;border:1px solid #285174;border-radius:14px;padding:17px;margin-bottom:15px}
+h2{font-size:18px;margin:0 0 14px;color:#ffd84d}
+.status{text-align:center;color:#9df5b1;font-weight:bold}
+button,.filelabel,select{border:0;border-radius:9px;padding:13px;font-size:15px;font-weight:bold}
+button{background:#087eaa;color:white}
+button:active,.filelabel:active{opacity:.7}
+.controls{display:flex;gap:9px;margin-top:14px}
+.controls button{flex:1}
+.filelabel{display:block;text-align:center;background:#ffd84d;color:#071b36;cursor:pointer}
+input[type=file]{display:none}
+select{width:100%;background:#071b36;color:white;margin-top:10px}
+audio{width:100%;margin-top:12px}
+#songList{padding:0;margin:12px 0 0;list-style:none}
+#songList li{padding:12px;border-bottom:1px solid #31506c;display:flex;justify-content:space-between;gap:8px;align-items:center}
+#songList li.active{color:#ffd84d}
+.songname{overflow-wrap:anywhere;flex:1}
+.del{background:#9b3030;padding:7px 10px}
+.small{font-size:12px;color:#b9cde0;line-height:1.5}
+footer{text-align:center;color:#9bb4ca;font-size:12px;padding:20px}
 </style>
 </head>
-<body>
 
+<body>
 <header>
 <h1>DEMEN FM 88</h1>
-<p>STUDIO AUTO DJ CONTROL</p>
-<small>RADIONYA CILACAP - EMANG NDEMENIN</small>
+<p>STUDIO AUTO DJ</p>
+<p>Emang Ndemenin • Radionya Cilacap</p>
 </header>
 
-<div class="card">
-<h3>STATUS RADIO</h3>
-<div class="status" id="status">
-🔴 SERVER BELUM TERHUBUNG
+<main>
+<section class="panel">
+<h2>Status Pemutar</h2>
+<div class="status" id="status">PEMUTAR SIAP</div>
+<div class="controls">
+<button onclick="mulai()">▶ MULAI</button>
+<button onclick="berhenti()">■ STOP</button>
 </div>
-<div class="buttons">
-<button class="green" onclick="serverInfo()">▶ START</button>
-<button class="red" onclick="serverInfo()">■ STOP</button>
-</div>
-<small>Pengendali server akan diaktifkan setelah koneksi Termux dipasang.</small>
-</div>
+<audio id="audio" controls></audio>
+<p id="judul" class="small">Belum ada lagu dipilih</p>
+</section>
 
-<div class="card">
-<h3>♫ PEMUTAR MUSIK</h3>
-<div class="status" id="now">Belum ada lagu diputar</div>
-<audio id="player" controls style="width:100%;margin-top:15px"></audio>
-<div class="buttons">
-<button class="blue" onclick="playSong()">▶ PUTAR</button>
-<button class="gray" onclick="pauseSong()">Ⅱ PAUSE</button>
-</div>
-</div>
+<section class="panel">
+<h2>Tambah Lagu</h2>
+<label class="filelabel" for="files">＋ PILIH FILE MUSIK</label>
+<input id="files" type="file" accept="audio/*" multiple>
+<p class="small">Pilih lagu MP3 dari penyimpanan HP. Lagu akan masuk ke daftar putar selama aplikasi dibuka.</p>
+</section>
 
-<div class="card">
-<h3>📁 TAMBAH LAGU</h3>
-<input type="file" id="files" accept="audio/*" multiple>
-<div class="buttons">
-<button class="green" onclick="addSongs()">+ MASUKKAN LAGU</button>
-</div>
-<p><small>Tambahkan lagu dari penyimpanan HP.</small></p>
-</div>
-
-<div class="card">
-<h3>📃 DAFTAR LAGU</h3>
-<div id="count">Jumlah lagu: 0</div>
-<div id="list"></div>
-</div>
-
-<div class="card">
-<h3>⚙️ PENGATURAN AUTO DJ</h3>
-<label>Bitrate siaran</label>
-<select id="bitrate">
-<option>96 kbps</option>
-<option>128 kbps</option>
-</select>
-<label>Mode pemutaran</label>
+<section class="panel">
+<h2>Daftar Lagu</h2>
+<p class="small" id="jumlah">Belum ada lagu</p>
 <select id="mode">
-<option value="loop">Putar berulang</option>
-<option value="random">Acak lagu</option>
+<option value="urut">Putar berurutan</option>
+<option value="acak">Putar acak</option>
 </select>
-<p><small>Pengaturan ini belum dikirim ke server sampai koneksi kendali dibuat.</small></p>
-</div>
+<ul id="songList"></ul>
+</section>
 
-<footer>
-DEMEN FM 88<br>
-Media Informasi dan Hiburan
-</footer>
+<footer>DEMEN FM 88 • STUDIO ADMIN</footer>
+</main>
 
 <script>
-let songs=[];
-let current=-1;
-const player=document.getElementById("player");
+const audio = document.getElementById("audio");
+const filesInput = document.getElementById("files");
+const songList = document.getElementById("songList");
+const statusText = document.getElementById("status");
+const judul = document.getElementById("judul");
+const jumlah = document.getElementById("jumlah");
 
-function addSongs(){
- const files=document.getElementById("files").files;
- for(const file of files){
-  if(file.type.startsWith("audio/")){
-   songs.push({
-    name:file.name,
-    url:URL.createObjectURL(file)
-   });
+let lagu = [];
+let index = 0;
+
+filesInput.addEventListener("change", function(){
+  const pilihan = Array.from(this.files);
+  pilihan.forEach(file => {
+    lagu.push({
+      nama:file.name,
+      url:URL.createObjectURL(file)
+    });
+  });
+  gambarDaftar();
+  if(lagu.length && !audio.src) pilihLagu(0);
+  this.value = "";
+});
+
+function gambarDaftar(){
+  songList.innerHTML = "";
+  jumlah.textContent = lagu.length + " lagu tersedia";
+
+  lagu.forEach((item,i)=>{
+    const li = document.createElement("li");
+    if(i === index) li.className = "active";
+
+    const nama = document.createElement("span");
+    nama.className = "songname";
+    nama.textContent = (i+1)+". "+item.nama;
+    nama.onclick = ()=>pilihLagu(i);
+
+    const hapus = document.createElement("button");
+    hapus.className = "del";
+    hapus.textContent = "Hapus";
+    hapus.onclick = ()=>hapusLagu(i);
+
+    li.append(nama,hapus);
+    songList.appendChild(li);
+  });
+}
+
+function pilihLagu(i){
+  if(!lagu.length) return;
+  index = i;
+  audio.src = lagu[index].url;
+  judul.textContent = "Dipilih: " + lagu[index].nama;
+  gambarDaftar();
+}
+
+function mulai(){
+  if(!lagu.length){
+    alert("Pilih file musik terlebih dahulu.");
+    return;
   }
- }
- render();
- document.getElementById("files").value="";
+  if(!audio.src) pilihLagu(index);
+  audio.play().then(()=>{
+    statusText.textContent = "SEDANG MEMUTAR";
+  }).catch(()=>{
+    statusText.textContent = "GAGAL MEMUTAR";
+  });
 }
 
-function render(){
- document.getElementById("count").textContent=
- "Jumlah lagu: "+songs.length;
- document.getElementById("list").innerHTML="";
- songs.forEach((s,i)=>{
-  const div=document.createElement("div");
-  div.className="song";
-  const name=document.createElement("span");
-  name.textContent=(i+1)+". "+s.name;
-  const play=document.createElement("button");
-  play.className="blue";
-  play.textContent="▶";
-  play.onclick=()=>selectSong(i);
-  const del=document.createElement("button");
-  del.className="red";
-  del.textContent="X";
-  del.onclick=()=>removeSong(i);
-  div.append(name,play,del);
-  document.getElementById("list").append(div);
- });
+function berhenti(){
+  audio.pause();
+  statusText.textContent = "BERHENTI";
 }
 
-function selectSong(i){
- current=i;
- player.src=songs[i].url;
- document.getElementById("now").textContent=
- "♫ "+songs[i].name;
- player.play();
+function berikutnya(){
+  if(!lagu.length) return;
+  if(document.getElementById("mode").value === "acak" && lagu.length > 1){
+    let baru;
+    do{baru=Math.floor(Math.random()*lagu.length)}while(baru===index);
+    index=baru;
+  }else{
+    index=(index+1)%lagu.length;
+  }
+  pilihLagu(index);
+  mulai();
 }
 
-function playSong(){
- if(current<0 && songs.length) selectSong(0);
- else if(current>=0) player.play();
+function hapusLagu(i){
+  URL.revokeObjectURL(lagu[i].url);
+  lagu.splice(i,1);
+
+  if(!lagu.length){
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+    index=0;
+    judul.textContent="Belum ada lagu dipilih";
+    statusText.textContent="PEMUTAR SIAP";
+  }else{
+    if(i===index){
+      audio.pause();
+      index=Math.min(i,lagu.length-1);
+      pilihLagu(index);
+    }else if(i<index){
+      index--;
+    }
+  }
+  gambarDaftar();
 }
 
-function pauseSong(){player.pause()}
+audio.addEventListener("ended", berikutnya);
+audio.addEventListener("pause", ()=>{
+  if(!audio.ended && audio.src) statusText.textContent="DIJEDA";
+});
+audio.addEventListener("play", ()=>{
+  statusText.textContent="SEDANG MEMUTAR";
+});
 
-function removeSong(i){
- URL.revokeObjectURL(songs[i].url);
- songs.splice(i,1);
- if(current===i){
-  player.pause();
-  player.removeAttribute("src");
-  current=-1;
-  document.getElementById("now").textContent="Belum ada lagu";
- }else if(current>i) current--;
- render();
-}
-
-player.onended=()=>{
- if(!songs.length)return;
- if(document.getElementById("mode").value==="random"){
-  current=Math.floor(Math.random()*songs.length);
- }else{
-  current=(current+1)%songs.length;
- }
- selectSong(current);
-};
-
-function serverInfo(){
- alert("Koneksi server Termux belum dipasang. Fungsi START dan STOP akan diaktifkan pada tahap berikutnya.");
-}
-</script>
-
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("Demen FM siap"))
-      .catch(error => console.log(error));
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./service-worker.js").catch(()=>{});
   });
 }
 </script>
-
 </body>
 </html>

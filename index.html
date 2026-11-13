@@ -4,383 +4,339 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080d19">
-<title>Demen FM Pro Studio</title>
+<meta name="theme-color" content="#071426">
+<title>Demen FM 88 Studio Pro</title>
 <style>
-:root{
- --bg:#080d19;--panel:#111b2c;--panel2:#17243a;
- --blue:#08b9f5;--gold:#f5c84c;--muted:#8395ae;
- --green:#20d995;--red:#fa5269;
-}
 *{box-sizing:border-box}
-body{
- margin:0;background:var(--bg);color:#f4f7ff;
- font-family:Arial,sans-serif;padding-bottom:85px;
-}
-header{
- padding:17px 18px;background:linear-gradient(120deg,#102c4b,#101827);
- border-bottom:1px solid #263750;
- display:flex;align-items:center;justify-content:space-between;
- position:sticky;top:0;z-index:10;
-}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{
- width:49px;height:49px;border-radius:14px;
- background:linear-gradient(145deg,#08b9f5,#07518b);
- display:grid;place-items:center;color:#ffe078;
- font-size:25px;font-weight:900;
- box-shadow:0 0 20px #08b9f544;
-}
-.brand h2{font-size:17px;margin:0;letter-spacing:1px}
-.brand small{color:var(--muted);font-size:9px;letter-spacing:2px}
-.live{
- color:var(--green);font-size:10px;font-weight:bold;
- border:1px solid #20d99566;border-radius:30px;padding:8px 10px;
-}
-main{max-width:650px;margin:auto;padding:17px}
-.page{display:none}
-.page.active{display:block}
-.eyebrow{color:var(--blue);font-size:10px;letter-spacing:2px;font-weight:bold}
-h1{font-size:25px;margin:8px 0}
-h3{font-size:14px;margin:0 0 15px}
-.card{
- background:linear-gradient(145deg,#15243a,#101827);
- border:1px solid #263750;border-radius:19px;
- padding:17px;margin-bottom:15px;
- box-shadow:0 8px 25px #0003;
-}
-.hero{
- background:radial-gradient(circle at 80% 20%,#07517a,#14243b 48%,#101827);
- border:1px solid #17618a;border-radius:22px;
- padding:20px;margin-bottom:16px;overflow:hidden;
-}
-.hero-top{display:flex;justify-content:space-between;align-items:center}
-.hero h1{font-size:26px;margin:17px 0 5px}
-.hero p{font-size:12px;color:#a9bfd6;margin:0}
-.disc{
- width:110px;height:110px;border-radius:50%;
- border:5px solid #314761;
- background:radial-gradient(circle,#f4d16a 0 8%,#111827 10% 23%,#283d59 25% 55%,#0a1527 58%);
- display:grid;place-items:center;
- box-shadow:0 0 28px #08b9f566;
- animation:spin 9s linear infinite;
-}
-.disc span{font-size:10px;font-weight:bold;color:#ffe078}
-@keyframes spin{to{transform:rotate(360deg)}}
-.visualizer{
- height:43px;display:flex;align-items:center;justify-content:center;
- gap:4px;margin:17px 0;
-}
-.visualizer i{
- width:5px;border-radius:5px;background:linear-gradient(#12d8ff,#0874c5);
- animation:wave .8s ease-in-out infinite alternate;
-}
-.visualizer i:nth-child(3n){animation-delay:.3s}
-.visualizer i:nth-child(2n){animation-delay:.5s}
-@keyframes wave{from{height:7px}to{height:38px}}
-.track{font-size:15px;font-weight:bold;margin:8px 0}
-.sub{font-size:11px;color:var(--muted)}
-.actions{display:flex;gap:9px;margin-top:15px}
-button{
- border:0;border-radius:12px;padding:13px 15px;
- font-size:12px;font-weight:bold;cursor:pointer;
-}
-.primary{background:linear-gradient(120deg,#08b9f5,#0877c9);color:white}
-.secondary{background:#243650;color:#eaf4ff}
-.gold{background:linear-gradient(120deg,#ffe18a,#d6a62e);color:#172033}
-.danger{background:#582536;color:#ff91a1}
-.full{width:100%}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{background:#111e31;border:1px solid #253750;padding:14px;border-radius:15px}
-.stat strong{display:block;font-size:19px;color:var(--blue);margin-top:7px}
-.stat span{font-size:10px;color:var(--muted)}
-.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.menu{
- background:#142239;border:1px solid #293e5c;border-radius:15px;
- padding:17px 12px;text-align:left;cursor:pointer;
-}
-.menu .ico{font-size:24px;margin-bottom:10px}
-.menu b{font-size:12px;display:block}
-.menu small{font-size:10px;color:var(--muted)}
-.nav{
- position:fixed;bottom:0;left:0;right:0;z-index:20;
- background:#101a2a;border-top:1px solid #293951;
- display:flex;justify-content:space-around;padding:10px 3px 13px;
-}
-.nav button{
- background:transparent;color:#8193aa;padding:7px 9px;
- font-size:10px;flex:1;
-}
-.nav button.active{color:var(--blue)}
-.nav span{display:block;font-size:20px;margin-bottom:4px}
-input{
- width:100%;background:#091424;color:white;
- border:1px solid #344965;border-radius:11px;
- padding:13px;font-size:13px;margin:7px 0;
-}
-.list-item{
- display:flex;align-items:center;gap:11px;
- padding:12px 0;border-bottom:1px solid #29384c;
-}
-.list-item:last-child{border:0}
-.number{
- width:34px;height:34px;background:#203753;
- border-radius:10px;display:grid;place-items:center;color:var(--blue);
-}
-.list-item b{font-size:12px}
-.list-item small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
-video,iframe{width:100%;border:0;border-radius:13px}
-#player{width:100%;margin-top:12px}
-.note{font-size:10px;color:var(--muted);line-height:1.6}
+body{margin:0;background:#071426;color:#eef7ff;
+font-family:Arial,sans-serif;padding-bottom:75px}
+header{padding:18px;background:linear-gradient(120deg,#063b65,#087eaa);
+display:flex;align-items:center;gap:13px}
+.logo{width:54px;height:54px;border-radius:15px;
+background:#fff;color:#087eaa;display:grid;place-items:center;
+font-size:25px;font-weight:900}
+h1{font-size:19px;margin:0}
+header p{font-size:11px;margin:5px 0 0;color:#c7eaff}
+.status{margin-left:auto;font-size:10px;color:#7fffc2}
+main{padding:14px;max-width:700px;margin:auto}
+.panel{background:#10243b;border:1px solid #1d3e5c;
+border-radius:17px;padding:15px;margin-bottom:14px}
+.heading{font-size:13px;font-weight:bold;letter-spacing:1px;
+color:#42caff;margin-bottom:13px}
+.now{background:linear-gradient(120deg,#10466a,#10243b)}
+.song{font-size:19px;font-weight:bold;margin:10px 0}
+.sub{font-size:11px;color:#9dbbd3}
+.meter{display:flex;gap:3px;height:42px;align-items:end;margin:15px 0}
+.meter i{flex:1;background:linear-gradient(#39e6b1,#1687de);
+border-radius:3px;height:var(--h)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+button{border:0;border-radius:12px;padding:13px 8px;
+font-weight:bold;color:white;background:#173b59;font-size:12px}
+button:active{transform:scale(.97)}
+button.primary{background:#087eaa}
+button.green{background:#087c5a}
+button.red{background:#a73543}
+button.youtube{background:#a72d36}
+button:disabled{opacity:.45}
+.source{padding:17px 5px;display:flex;flex-direction:column;
+align-items:center;gap:8px;min-height:85px}
+.source b{font-size:12px}
+.source span{font-size:10px;color:#a9c5dc}
+input[type=text]{width:100%;background:#071a2c;
+border:1px solid #31516d;padding:13px;border-radius:10px;
+color:white;margin:7px 0}
+input[type=file]{width:100%;font-size:12px;margin:10px 0}
+input[type=range]{width:100%;accent-color:#24c5ff}
+iframe{width:100%;aspect-ratio:16/9;border:0;
+border-radius:12px;margin-top:10px}
+label{font-size:11px;color:#a9c5dc}
+.row{display:flex;justify-content:space-between;
+align-items:center;gap:10px;margin:12px 0}
+.small{font-size:10px;color:#91adc5;line-height:1.6}
+footer{position:fixed;bottom:0;left:0;right:0;
+background:#0b2036;border-top:1px solid #23415e;
+display:flex;justify-content:space-around;padding:12px}
+footer a{color:#9dc9e7;text-decoration:none;font-size:10px}
+footer a:active{color:#36caff}
 </style>
 </head>
 <body>
 
 <header>
- <div class="brand">
-  <div class="logo">88</div>
-  <div>
-   <h2>DEMEN FM</h2>
-   <small>PRO BROADCAST STUDIO</small>
-  </div>
- </div>
- <div class="live">● STUDIO</div>
+<div class="logo">88</div>
+<div>
+<h1>DEMEN FM</h1>
+<p>STUDIO PRO • RADIONYA CILACAP</p>
+</div>
+<div class="status" id="serverStatus">● MEMERIKSA</div>
 </header>
 
 <main>
 
-<section id="home" class="page active">
- <div class="hero">
-  <div class="hero-top">
-   <div>
-    <div class="eyebrow">BROADCAST CONTROL</div>
-    <h1>STUDIO<br>CONTROL</h1>
-    <p>Emang Ndemenin • Radionya Cilacap</p>
-   </div>
-   <div class="disc"><span>DEMEN FM</span></div>
-  </div>
-  <div class="visualizer">
-   <i></i><i></i><i></i><i></i><i></i><i></i>
-   <i></i><i></i><i></i><i></i><i></i><i></i>
-   <i></i><i></i><i></i><i></i><i></i><i></i>
-   <i></i><i></i><i></i>
-  </div>
-  <div class="sub">NOW PLAYING</div>
-  <div class="track" id="nowPlaying">DEMEN FM AUTO DJ</div>
-  <div class="sub" id="playState">Siap menerima playlist lokal</div>
-  <div class="actions">
-   <button class="primary" onclick="playLocal()">▶ PLAY</button>
-   <button class="secondary" onclick="pauseLocal()">Ⅱ PAUSE</button>
-  </div>
-  <audio id="player" controls></audio>
- </div>
-
- <div class="stats">
-  <div class="stat">
-   <span>MODE RADIO</span>
-   <strong>AUTO DJ</strong>
-  </div>
-  <div class="stat">
-   <span>STATION</span>
-   <strong>88 FM</strong>
-  </div>
- </div>
-
- <h3 style="margin-top:22px">STUDIO MENU</h3>
- <div class="menu-grid">
-  <div class="menu" onclick="showPage('music')">
-   <div class="ico">🎵</div><b>MUSIC LIBRARY</b>
-   <small>Koleksi lagu MP3</small>
-  </div>
-  <div class="menu" onclick="showPage('youtube')">
-   <div class="ico">▶️</div><b>YOUTUBE REQUEST</b>
-   <small>Pemutar lagu YouTube</small>
-  </div>
-  <div class="menu" onclick="showPage('queue')">
-   <div class="ico">📋</div><b>PLAYLIST QUEUE</b>
-   <small>Antrean lagu</small>
-  </div>
-  <div class="menu" onclick="showPage('mixer')">
-   <div class="ico">🎚️</div><b>AUDIO MIXER</b>
-   <small>Kontrol audio</small>
-  </div>
- </div>
+<section class="panel now">
+<div class="heading">● ON AIR CONTROL</div>
+<div class="sub">NOW PLAYING</div>
+<div class="song" id="nowPlaying">DEMEN FM 88</div>
+<div class="sub" id="sourceName">AUTO DJ • STANDBY</div>
+<div class="meter" id="meter"></div>
+<div class="row">
+<span class="small">SERVER RADIO</span>
+<b id="serverText">MEMERIKSA...</b>
+</div>
+<div class="grid">
+<button class="green" onclick="serverStart()">NYALAKAN SERVER</button>
+<button class="red" onclick="serverStop()">STOP SERVER</button>
+</div>
 </section>
 
-<section id="music" class="page">
- <div class="eyebrow">AUDIO LIBRARY</div>
- <h1>Music Library</h1>
- <div class="card">
-  <h3>Tambahkan koleksi MP3</h3>
-  <input type="file" id="files" accept="audio/*" multiple>
-  <p class="note">Pilih lagu dari penyimpanan HP. Lagu dapat diputar sebagai preview di aplikasi ini.</p>
- </div>
- <div class="card">
-  <h3>DAFTAR LAGU</h3>
-  <div id="musicList" class="note">Belum ada lagu dipilih.</div>
- </div>
- <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+<section class="panel">
+<div class="heading">01 • AUDIO SOURCE</div>
+<div class="grid">
+<button class="source primary" onclick="showPanel('file')">
+<span>🎵</span><b>AUTO DJ FILE</b>
+<span>Musik HP</span>
+</button>
+<button class="source youtube" onclick="showPanel('yt')">
+<span>▶</span><b>YOUTUBE DJ</b>
+<span>Musik YouTube</span>
+</button>
+<button class="source" onclick="showPanel('mic')">
+<span>🎙️</span><b>MIC SIARAN</b>
+<span>Live announcer</span>
+</button>
+<button class="source" onclick="showPanel('mixer')">
+<span>🎚️</span><b>DIGITAL MIXER</b>
+<span>Audio control</span>
+</button>
+</div>
 </section>
 
-<section id="youtube" class="page">
- <div class="eyebrow">MUSIC REQUEST</div>
- <h1>YouTube Player</h1>
- <div class="card">
-  <h3>PUTAR VIDEO YOUTUBE</h3>
-  <input id="ytInput" placeholder="Tempel link YouTube di sini">
-  <button class="primary full" onclick="loadYoutube()">▶ PUTAR YOUTUBE</button>
-  <div id="ytFrame" style="margin-top:15px">
-   <div class="note">Pemutar YouTube akan tampil di sini.</div>
-  </div>
-  <p class="note">Gunakan pemutar resmi YouTube. Video tertentu mungkin membatasi pemutaran di aplikasi lain. Pemutaran YouTube di sini belum masuk ke siaran radio.</p>
- </div>
- <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+<section class="panel" id="file">
+<div class="heading">02 • AUTO DJ MUSIC FILE</div>
+<input type="file" id="musicFile" accept="audio/*">
+<audio id="audio" controls style="width:100%"></audio>
+<div class="grid">
+<button class="green" onclick="playFile()">▶ PLAY</button>
+<button onclick="pauseFile()">Ⅱ PAUSE</button>
+<button onclick="stopFile()">■ STOP PREVIEW</button>
+</div>
+<p class="small">Pemutar file lokal untuk pratinjau studio. Agar terdengar di radio, sumber file harus disalurkan oleh server Liquidsoap.</p>
 </section>
 
-<section id="queue" class="page">
- <div class="eyebrow">PLAYOUT SYSTEM</div>
- <h1>Playlist Queue</h1>
- <div class="card">
-  <h3>ANTREAN LAGU</h3>
-  <div id="queueList" class="note">Antrean masih kosong.</div>
-  <button class="danger full" onclick="clearQueue()">HAPUS ANTREAN</button>
- </div>
- <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+<section class="panel" id="yt">
+<div class="heading">03 • YOUTUBE DJ</div>
+<input type="text" id="ytLink" placeholder="Tempel link YouTube di sini">
+<button class="youtube" style="width:100%" onclick="playYT()">▶ BUKA YOUTUBE</button>
+<div id="ytPlayer"></div>
+<p class="small">Pemutaran YouTube di panel ini adalah pratinjau. Belum otomatis masuk ke encoder radio.</p>
 </section>
 
-<section id="mixer" class="page">
- <div class="eyebrow">SOUND CONTROL</div>
- <h1>Audio Mixer</h1>
- <div class="card">
-  <h3>PREVIEW PLAYER VOLUME</h3>
-  <label class="sub">Volume pemutar lokal</label>
-  <input type="range" min="0" max="100" value="80" id="volume">
-  <p class="note">Pengaturan ini hanya memengaruhi preview audio di aplikasi, bukan volume siaran Liquidsoap.</p>
- </div>
- <div class="card">
-  <h3>MICROPHONE</h3>
-  <button class="primary full" onclick="micTest()">🎙 TES IZIN MIKROFON</button>
-  <p id="micState" class="note">Mikrofon belum dites.</p>
-  <p class="note">Tes ini hanya memeriksa izin mikrofon. Belum mengirim suara ke siaran.</p>
- </div>
- <button class="secondary full" onclick="showPage('home')">← KEMBALI</button>
+<section class="panel" id="mic">
+<div class="heading">04 • MICROPHONE STUDIO</div>
+<div class="row">
+<b>MICROPHONE</b>
+<span id="micStatus" class="small">MATI</span>
+</div>
+<div class="grid">
+<button class="green" onclick="micStart()">🎙️ AKTIFKAN MIC</button>
+<button class="red" onclick="micStop()">MATIKAN MIC</button>
+</div>
+<div class="row">
+<label>MIC GAIN</label>
+<b id="gainValue">100%</b>
+</div>
+<input type="range" min="0" max="200" value="100"
+oninput="setGain(this.value)">
+<div class="row">
+<label>REVERB / GEMA</label>
+<b id="reverbValue">20%</b>
+</div>
+<input type="range" min="0" max="100" value="20"
+oninput="setReverb(this.value)">
+<p class="small">Reverb dan mic pada halaman ini merupakan monitoring lokal. Untuk masuk ke siaran perlu integrasi jalur audio server.</p>
+</section>
+
+<section class="panel" id="mixer">
+<div class="heading">05 • DIGITAL AUDIO MIXER</div>
+<div class="row">
+<label>AUTO DJ VOLUME</label>
+<b id="v1">85%</b>
+</div>
+<input type="range" value="85" oninput="setVol('v1',this.value)">
+<div class="row">
+<label>YOUTUBE VOLUME</label>
+<b id="v2">80%</b>
+</div>
+<input type="range" value="80" oninput="setVol('v2',this.value)">
+<div class="row">
+<label>MIC VOLUME</label>
+<b id="v3">75%</b>
+</div>
+<input type="range" value="75" oninput="setVol('v3',this.value)">
+<div class="row">
+<label>MASTER VOLUME</label>
+<b id="v4">90%</b>
+</div>
+<input type="range" value="90" oninput="setVol('v4',this.value)">
+<div class="row">
+<label>HEADPHONE MONITOR</label>
+<button id="monitorButton" onclick="toggleMonitor()">MONITOR OFF</button>
+</div>
+<p class="small">Gunakan headphone untuk menghindari feedback mic. Kontrol mixer ini belum mengubah level encoder radio.</p>
+</section>
+
+<section class="panel">
+<div class="heading">06 • STREAMING INFORMATION</div>
+<div class="row"><span class="small">SERVER</span><b>Caster.fm</b></div>
+<div class="row"><span class="small">HOST</span><b>sapircast.caster.fm</b></div>
+<div class="row"><span class="small">PORT</span><b>19950</b></div>
+<div class="row"><span class="small">CONTROL PORT</span><b>8765</b></div>
+<div class="row"><span class="small">STATUS</span><b id="statusDetail">MEMERIKSA</b></div>
 </section>
 
 </main>
 
-<nav class="nav">
- <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>HOME</button>
- <button data-page="music" onclick="showPage('music')"><span>♫</span>MUSIC</button>
- <button data-page="youtube" onclick="showPage('youtube')"><span>▶</span>YOUTUBE</button>
- <button data-page="queue" onclick="showPage('queue')"><span>☷</span>QUEUE</button>
- <button data-page="mixer" onclick="showPage('mixer')"><span>🎚</span>MIXER</button>
-</nav>
+<footer>
+<a href="#">⌂<br>STUDIO</a>
+<a href="#file">♫<br>AUTO DJ</a>
+<a href="#yt">▶<br>YOUTUBE</a>
+<a href="#mic">🎙<br>MIC</a>
+<a href="#mixer">🎚<br>MIXER</a>
+</footer>
 
 <script>
-let songs=[];
-let queue=[];
-let currentURL=null;
-const player=document.getElementById('player');
+const SERVER="http://127.0.0.1:8765";
 
-function showPage(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav button').forEach(b=>{
-  b.classList.toggle('active',b.dataset.page===id);
+const audio=document.getElementById("audio");
+let micStream=null;
+let audioContext=null;
+let micSource=null;
+let gainNode=null;
+let reverbNode=null;
+let monitorOn=false;
+
+function showPanel(id){
+ document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+async function api(path,method="GET"){
+ const response=await fetch(SERVER+path,{
+  method,
+  headers:{"Content-Type":"application/json"}
  });
+ if(!response.ok) throw new Error("HTTP "+response.status);
+ return response.json();
 }
 
-document.getElementById('files').addEventListener('change',function(){
- songs=Array.from(this.files);
- const box=document.getElementById('musicList');
- box.innerHTML='';
- songs.forEach((song,i)=>{
-  const div=document.createElement('div');
-  div.className='list-item';
-  const number=document.createElement('div');
-  number.className='number';
-  number.textContent=i+1;
-  const info=document.createElement('div');
-  info.style.flex='1';
-  const name=document.createElement('b');
-  name.textContent=song.name;
-  const size=document.createElement('small');
-  size.textContent=(song.size/1048576).toFixed(2)+' MB';
-  info.append(name,size);
-  const btn=document.createElement('button');
-  btn.className='secondary';
-  btn.textContent='PLAY';
-  btn.onclick=()=>playSong(i);
-  div.append(number,info,btn);
-  box.append(div);
- });
-});
-
-function playSong(i){
- if(!songs[i])return;
- if(currentURL)URL.revokeObjectURL(currentURL);
- currentURL=URL.createObjectURL(songs[i]);
- player.src=currentURL;
- player.play();
- document.getElementById('nowPlaying').textContent=songs[i].name;
- document.getElementById('playState').textContent='LOCAL PREVIEW';
- queue.push(songs[i].name);
- renderQueue();
-}
-
-function playLocal(){player.play()}
-function pauseLocal(){player.pause()}
-
-player.addEventListener('ended',()=>{
- document.getElementById('playState').textContent='PREVIEW SELESAI';
-});
-player.addEventListener('play',()=>{
- document.getElementById('playState').textContent='PREVIEW BERJALAN';
-});
-player.addEventListener('pause',()=>{
- if(player.currentTime>0)
- document.getElementById('playState').textContent='PREVIEW DIJEDA';
-});
-
-document.getElementById('volume').addEventListener('input',function(){
- player.volume=this.value/100;
-});
-
-function renderQueue(){
- const box=document.getElementById('queueList');
- box.innerHTML='';
- if(!queue.length){box.textContent='Antrean masih kosong.';return}
- queue.forEach((name,i)=>{
-  const div=document.createElement('div');
-  div.className='list-item';
-  const num=document.createElement('div');
-  num.className='number';num.textContent=i+1;
-  const title=document.createElement('b');
-  title.textContent=name;
-  div.append(num,title);box.append(div);
- });
-}
-function clearQueue(){queue=[];renderQueue()}
-
-function loadYoutube(){
- const value=document.getElementById('ytInput').value.trim();
- const match=value.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
- if(!match){alert('Masukkan link video YouTube yang benar.');return}
- const id=match[1];
- document.getElementById('ytFrame').innerHTML=
- '<iframe height="220" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-}
-
-async function micTest(){
- const label=document.getElementById('micState');
+async function cekStatus(){
  try{
-  const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-  stream.getTracks().forEach(t=>t.stop());
-  label.textContent='Izin mikrofon berhasil. Tes selesai.';
+  const data=await api("/status");
+  const hidup=data.status==="hidup";
+  document.getElementById("serverStatus").textContent=
+   hidup?"● CONNECTED":"● STANDBY";
+  document.getElementById("serverText").textContent=
+   hidup?"TERHUBUNG":"TIDAK AKTIF";
+  document.getElementById("statusDetail").textContent=
+   hidup?"SERVER AKTIF":"SERVER MATI";
  }catch(e){
-  label.textContent='Mikrofon tidak diizinkan atau tidak tersedia.';
+  document.getElementById("serverStatus").textContent="● OFFLINE";
+  document.getElementById("serverText").textContent="BELUM TERHUBUNG";
+  document.getElementById("statusDetail").textContent="CEK KONEKSI";
  }
 }
+async function serverStart(){
+ try{
+  await api("/start","POST");
+  cekStatus();
+ }catch(e){alert("Kontrol server gagal: "+e.message);}
+}
+async function serverStop(){
+ if(!confirm("Yakin mematikan server radio?"))return;
+ try{
+  await api("/stop","POST");
+  cekStatus();
+ }catch(e){alert("Kontrol server gagal: "+e.message);}
+}
+
+document.getElementById("musicFile").onchange=function(){
+ if(!this.files[0])return;
+ audio.src=URL.createObjectURL(this.files[0]);
+ document.getElementById("nowPlaying").textContent=this.files[0].name;
+ document.getElementById("sourceName").textContent="FILE • PREVIEW LOKAL";
+};
+function playFile(){
+ if(!audio.src)return alert("Pilih file musik dahulu");
+ audio.play();
+}
+function pauseFile(){audio.pause();}
+function stopFile(){audio.pause();audio.currentTime=0;}
+
+function playYT(){
+ const link=document.getElementById("ytLink").value.trim();
+ let id="";
+ try{
+  const u=new URL(link);
+  if(u.hostname.includes("youtu.be"))id=u.pathname.slice(1);
+  else if(u.hostname.includes("youtube.com"))
+   id=u.searchParams.get("v")||u.pathname.split("/").pop();
+ }catch(e){}
+ if(!id)return alert("Link YouTube tidak valid");
+ document.getElementById("ytPlayer").innerHTML=
+  '<iframe allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?autoplay=1"></iframe>';
+ document.getElementById("nowPlaying").textContent="YOUTUBE DJ";
+ document.getElementById("sourceName").textContent="YOUTUBE • PREVIEW";
+}
+
+async function micStart(){
+ try{
+  micStream=await navigator.mediaDevices.getUserMedia({audio:true});
+  audioContext=new (window.AudioContext||window.webkitAudioContext)();
+  micSource=audioContext.createMediaStreamSource(micStream);
+  gainNode=audioContext.createGain();
+  reverbNode=audioContext.createGain();
+  gainNode.gain.value=1;
+  reverbNode.gain.value=.2;
+  micSource.connect(gainNode);
+  gainNode.connect(reverbNode);
+  if(monitorOn)reverbNode.connect(audioContext.destination);
+  document.getElementById("micStatus").textContent="AKTIF • MONITOR LOKAL";
+ }catch(e){alert("Mic gagal diaktifkan: "+e.message);}
+}
+function micStop(){
+ if(micStream)micStream.getTracks().forEach(t=>t.stop());
+ if(audioContext)audioContext.close();
+ micStream=null;audioContext=null;
+ document.getElementById("micStatus").textContent="MATI";
+}
+function setGain(v){
+ document.getElementById("gainValue").textContent=v+"%";
+ if(gainNode)gainNode.gain.value=v/100;
+}
+function setReverb(v){
+ document.getElementById("reverbValue").textContent=v+"%";
+ if(reverbNode)reverbNode.gain.value=v/100;
+}
+function toggleMonitor(){
+ monitorOn=!monitorOn;
+ document.getElementById("monitorButton").textContent=
+ monitorOn?"MONITOR ON":"MONITOR OFF";
+ if(reverbNode&&audioContext){
+  if(monitorOn)reverbNode.connect(audioContext.destination);
+  else reverbNode.disconnect();
+ }
+}
+function setVol(id,v){
+ document.getElementById(id).textContent=v+"%";
+}
+
+const meter=document.getElementById("meter");
+for(let i=0;i<24;i++){
+ const bar=document.createElement("i");
+ bar.style.setProperty("--h",(20+Math.random()*75)+"%");
+ meter.appendChild(bar);
+}
+cekStatus();
+setInterval(cekStatus,5000);
 </script>
 </body>
 </html>

@@ -7,41 +7,281 @@
 <meta name="theme-color" content="#061329">
 <title>Demen FM 88 Studio Pro</title>
 <style>
+
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#123d68,#071426 55%,#020812);color:#effaff;font-family:Arial,sans-serif;padding-bottom:80px}
-header{padding:17px;background:linear-gradient(120deg,#062d55,#087eaa,#123e72);display:flex;align-items:center;gap:13px;box-shadow:0 0 25px #00aaff88;border-bottom:1px solid #35d5ff}
-.logo{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,#fff,#54dfff);color:#06365a;display:grid;place-items:center;font-size:25px;font-weight:900;box-shadow:0 0 12px #29d9ff,0 0 30px #008cff}
-h1{font-size:18px;margin:0;text-shadow:0 0 12px #36cfff}
-header p{font-size:11px;margin:5px 0 0;color:#c7eaff}
-.status{margin-left:auto;font-size:10px;color:#66ffbd}
-main{padding:14px;max-width:700px;margin:auto}
-.panel{background:linear-gradient(145deg,#102c49,#08182b);border:1px solid #1689c9;border-radius:17px;padding:15px;margin-bottom:14px;box-shadow:0 0 12px #008cff44}
-.heading{font-size:13px;font-weight:bold;letter-spacing:1px;color:#43d9ff;margin-bottom:13px;text-shadow:0 0 10px #00bfff}
-.now{background:linear-gradient(120deg,#07558a,#10243b);border-color:#32d8ff;box-shadow:0 0 18px #00bfff66}
-.song{font-size:19px;font-weight:bold;margin:10px 0;color:white}
-.sub{font-size:11px;color:#9dc9e9}
-.meter{display:flex;gap:3px;height:42px;align-items:end;margin:15px 0}
-.meter i{flex:1;background:linear-gradient(#6affd3,#00bfff,#126bff);border-radius:3px;height:var(--h);box-shadow:0 0 9px #00caff}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-button{border:1px solid #168dca;border-radius:12px;padding:13px 8px;font-weight:bold;color:white;background:linear-gradient(145deg,#174b70,#102a47);font-size:12px;box-shadow:0 0 9px #008cff55}
-button:active{transform:scale(.96);box-shadow:0 0 20px #00d9ff}
-.primary{background:linear-gradient(135deg,#008ed0,#0054aa)}
-.green{background:linear-gradient(135deg,#00bd82,#087c5a);border-color:#39ffc0}
-.red{background:linear-gradient(135deg,#d9435b,#762036);border-color:#ff5875}
-.youtube{background:linear-gradient(135deg,#ff414b,#8f1627);border-color:#ff6673}
-.source{padding:17px 5px;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:85px}
+
+body{
+ margin:0;
+ min-height:100vh;
+ color:#f1fbff;
+ font-family:Arial,sans-serif;
+ background:
+ radial-gradient(ellipse at 15% 5%,#075b83 0%,transparent 38%),
+ radial-gradient(ellipse at 90% 35%,#172d72 0%,transparent 38%),
+ linear-gradient(145deg,#020817,#071a31 55%,#030b1b);
+ padding-bottom:80px;
+ isolation:isolate;
+}
+
+/* GELEMBUNG CAHAYA */
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
+ background:
+ radial-gradient(circle at 12% 30%,#00d9ff35 0 3px,transparent 5px),
+ radial-gradient(circle at 80% 18%,#39eaff40 0 5px,transparent 8px),
+ radial-gradient(circle at 70% 75%,#008cff45 0 4px,transparent 7px),
+ radial-gradient(circle at 28% 85%,#24dfff30 0 6px,transparent 10px),
+ radial-gradient(circle at 92% 55%,#8c7bff30 0 3px,transparent 7px);
+ background-size:240px 260px,320px 300px,280px 320px,350px 350px,300px 280px;
+ animation:bubbles 16s linear infinite;
+}
+@keyframes bubbles{
+ 0%{background-position:0 0,0 0,0 0,0 0,0 0}
+ 100%{background-position:80px -260px,-100px -300px,120px -320px,-80px -350px,100px -280px}
+}
+
+header{
+ position:relative;
+ z-index:1;
+ display:flex;
+ align-items:center;
+ gap:13px;
+ padding:18px;
+ background:linear-gradient(120deg,#0a294b99,#087eaa55,#142d6399);
+ backdrop-filter:blur(22px);
+ -webkit-backdrop-filter:blur(22px);
+ border-bottom:1px solid #65eaff77;
+ box-shadow:0 8px 35px #00bfff25,inset 0 1px #ffffff25;
+}
+.logo{
+ width:55px;height:55px;
+ border-radius:17px;
+ display:grid;place-items:center;
+ background:linear-gradient(145deg,#ffffffdd,#63eaff77);
+ border:1px solid #ffffffaa;
+ color:#06365a;
+ font-size:26px;font-weight:900;
+ box-shadow:0 0 18px #00dfff99,inset 0 2px 8px #ffffffcc;
+}
+h1{
+ font-size:18px;margin:0;
+ text-shadow:0 0 15px #28dfff;
+}
+header p{font-size:11px;margin:5px 0 0;color:#c8f4ff}
+.status{
+ margin-left:auto;
+ color:#70ffca;
+ font-size:10px;
+ text-shadow:0 0 12px #00ffb3;
+}
+
+main{
+ position:relative;
+ z-index:1;
+ padding:14px;
+ max-width:720px;
+ margin:auto;
+}
+
+.panel{
+ position:relative;
+ overflow:hidden;
+ background:linear-gradient(135deg,#b9eaff17,#63dfff08 45%,#ffffff0d);
+ border:1px solid #8deaff55;
+ border-radius:22px;
+ padding:17px;
+ margin-bottom:15px;
+ backdrop-filter:blur(20px);
+ -webkit-backdrop-filter:blur(20px);
+ box-shadow:
+ 0 12px 35px #00000055,
+ 0 0 18px #00bfff18,
+ inset 0 1px 1px #ffffff55,
+ inset 0 -1px 1px #48dfff22;
+}
+.panel:before{
+ content:"";
+ position:absolute;
+ top:0;left:12%;
+ width:76%;height:1px;
+ background:linear-gradient(90deg,transparent,#c8f8ff,transparent);
+ opacity:.8;
+}
+.heading{
+ color:#79edff;
+ font-size:12px;
+ font-weight:bold;
+ letter-spacing:1.6px;
+ margin-bottom:14px;
+ text-shadow:0 0 12px #00dfff;
+}
+.now{
+ background:linear-gradient(135deg,#0879a855,#132b5899);
+ border-color:#66edff99;
+ box-shadow:0 0 25px #00cfff44,inset 0 0 25px #42dfff15;
+}
+.song{
+ font-size:21px;
+ font-weight:bold;
+ margin:12px 0;
+ color:#fff;
+ text-shadow:0 0 15px #42dfff99;
+}
+.sub{font-size:11px;color:#b9dff2}
+
+.meter{
+ display:flex;
+ gap:4px;
+ height:45px;
+ align-items:end;
+ margin:16px 0;
+}
+.meter i{
+ flex:1;
+ height:var(--h);
+ border-radius:8px;
+ background:linear-gradient(180deg,#bafff0,#20e5ff 45%,#287aff);
+ box-shadow:0 0 10px #00dfff,0 0 18px #008cff66;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:11px;
+}
+
+button{
+ position:relative;
+ overflow:hidden;
+ border:1px solid #9ceeff88;
+ border-radius:16px;
+ padding:15px 9px;
+ color:#effcff;
+ font-size:12px;
+ font-weight:bold;
+ background:linear-gradient(145deg,#b5efff28,#46cfff0d);
+ backdrop-filter:blur(15px);
+ -webkit-backdrop-filter:blur(15px);
+ box-shadow:
+ 0 6px 18px #0005,
+ 0 0 13px #00cfff35,
+ inset 0 1px 2px #ffffff77,
+ inset 0 -2px 8px #00bfff22;
+ transition:.25s;
+}
+button:before{
+ content:"";
+ position:absolute;
+ top:0;left:-100%;
+ width:65%;height:100%;
+ background:linear-gradient(110deg,transparent,#ffffff33,transparent);
+ transform:skewX(-20deg);
+}
+button:active{
+ transform:scale(.96);
+ box-shadow:0 0 25px #00dfff99,inset 0 0 15px #ffffff33;
+}
+button:active:before{left:140%}
+
+.primary{
+ background:linear-gradient(135deg,#13bfff88,#1766d888);
+ border-color:#78eaff;
+ box-shadow:0 0 18px #00bfff66,inset 0 1px #ffffff88;
+}
+.green{
+ background:linear-gradient(135deg,#00dca277,#087e6888);
+ border-color:#70ffcf;
+ box-shadow:0 0 18px #00ffb344,inset 0 1px #ffffff77;
+}
+.red{
+ background:linear-gradient(135deg,#ff426977,#891d4688);
+ border-color:#ff9cac;
+ box-shadow:0 0 18px #ff426944;
+}
+.youtube{
+ background:linear-gradient(135deg,#ff405f88,#9d173c99);
+ border-color:#ff9cae;
+ box-shadow:0 0 18px #ff315544;
+}
+.source{
+ min-height:94px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ gap:9px;
+}
 .source b{font-size:12px}
-.source span{font-size:10px;color:#b5d9f2}
-input[type=text]{width:100%;background:#061629;border:1px solid #21b9ed;padding:13px;border-radius:10px;color:white;margin:7px 0}
-input[type=file]{width:100%;font-size:12px;margin:10px 0}
-input[type=range]{width:100%;accent-color:#28d8ff}
-audio{width:100%;margin:10px 0}
-iframe{width:100%;aspect-ratio:16/9;border:1px solid #29cfff;border-radius:12px;margin-top:10px}
-label{font-size:11px;color:#a9c5dc}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}
-.small{font-size:10px;color:#91adc5;line-height:1.6}
-footer{position:fixed;bottom:0;left:0;right:0;background:#071a30ee;border-top:1px solid #168dca;display:flex;justify-content:space-around;padding:12px}
-footer a{color:#69d9ff;text-decoration:none;font-size:10px}
+.source span{font-size:10px;color:#d2f4ff}
+
+input[type=text]{
+ width:100%;
+ padding:14px;
+ border:1px solid #73e8ff99;
+ border-radius:13px;
+ background:#071b31aa;
+ color:white;
+ margin:8px 0;
+ outline:none;
+ box-shadow:inset 0 0 12px #00aaff22,0 0 10px #00bfff22;
+}
+input[type=text]:focus{
+ border-color:#8ff4ff;
+ box-shadow:0 0 16px #00cfff77;
+}
+input[type=file]{
+ width:100%;
+ margin:12px 0;
+ font-size:12px;
+ color:#d8f5ff;
+}
+input[type=range]{
+ width:100%;
+ accent-color:#25e4ff;
+}
+audio{width:100%;margin:12px 0}
+iframe{
+ width:100%;
+ aspect-ratio:16/9;
+ border:1px solid #79eaff;
+ border-radius:15px;
+ margin-top:12px;
+ box-shadow:0 0 20px #00bfff55;
+}
+label{font-size:11px;color:#c6eaff}
+.row{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin:13px 0;
+}
+.small{font-size:10px;color:#a9c9df;line-height:1.7}
+
+footer{
+ position:fixed;
+ z-index:5;
+ bottom:0;left:0;right:0;
+ display:flex;
+ justify-content:space-around;
+ padding:14px 5px;
+ background:#07172bd9;
+ backdrop-filter:blur(20px);
+ -webkit-backdrop-filter:blur(20px);
+ border-top:1px solid #60eaff66;
+ box-shadow:0 -8px 30px #008cff33;
+}
+footer a{
+ color:#8ceeff;
+ text-decoration:none;
+ font-size:10px;
+ font-weight:bold;
+ text-shadow:0 0 10px #00cfff;
+}
 </style>
 </head>
 <body>
